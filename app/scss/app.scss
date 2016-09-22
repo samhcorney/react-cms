@@ -1,0 +1,37 @@
+/*------------------------------------*\
+    $VENDOR
+\*------------------------------------*/
+
+/* Bourbon and Neat */
+@import "bourbon";
+@import "neat-helpers";
+@import "modules/variables/_siteSettings";
+@import "neat";
+
+/* Resets */
+@import "vendor/_reset";
+
+/*------------------------------------*\
+    $MODULES
+\*------------------------------------*/
+
+/* Palette */
+@import "modules/variables/_primaryPalette";
+
+/* Mixins */
+@import "modules/mixins/_padding";
+
+/*------------------------------------*\
+    $PARTIALS
+\*------------------------------------*/
+
+/* Components */
+@import "partials/components/_sideMenu";
+@import "partials/components/_primaryContentContainer";
+
+/*------------------------------------*\
+    $BASE STYLES
+\*------------------------------------*/
+body {
+	font-family: 'Lato', sans-serif;
+}

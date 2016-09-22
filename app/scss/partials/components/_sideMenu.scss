@@ -1,0 +1,20 @@
+.sideMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: $sideMenuWidth;
+    background-color: $colour2;
+
+}
+
+.sideMenu li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    border-bottom: solid $colour4 1px;
+    &:hover {
+        cursor: pointer;
+    }
+}

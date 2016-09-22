@@ -1,0 +1,10 @@
+/*------------------------------------*\
+    #PADDING
+\*------------------------------------*/
+
+@mixin content-padding {
+    padding: $content-padding-mobile;
+    @include media( $desktop ) {
+        padding: $content-padding-desktop;
+    }
+}

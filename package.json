@@ -1,0 +1,46 @@
+{
+  "name": "react-cms",
+  "version": "0.1.0",
+  "description": "A CMS built using react",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samhcorney/react-cms.git"
+  },
+  "keywords": [
+    "react",
+    "html",
+    "cms",
+    "browserify",
+    "typescript",
+    "scss"
+  ],
+  "author": "samhcorney",
+  "bugs": {
+    "url": "https://github.com/samhcorney/react-cms/issues"
+  },
+  "homepage": "https://github.com/samhcorney/react-cms#readme",
+  "devDependencies": {
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "browser-sync": "^2.16.0",
+    "browserify": "^13.0.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-cheerio": "^0.6.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-svg-symbols": "^2.0.0",
+    "gulp-svgo": "^1.0.3",
+    "gulp-util": "^3.0.7",
+    "lodash.assign": "^4.2.0",
+    "node-bourbon": "^4.2.8",
+    "node-neat": "^1.7.2",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "svgxuse": "^1.1.21",
+    "tsify": "^1.0.3",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  }
+}
