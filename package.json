@@ -32,6 +32,8 @@
     "gulp-svg-symbols": "^2.0.0",
     "gulp-svgo": "^1.0.3",
     "gulp-util": "^3.0.7",
+    "handlebars": "^4.0.5",
+    "jquery": "^3.1.1",
     "lodash.assign": "^4.2.0",
     "node-bourbon": "^4.2.8",
     "node-neat": "^1.7.2",
