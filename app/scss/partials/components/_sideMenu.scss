@@ -8,13 +8,29 @@
 
 }
 
-.sideMenu li {
+.sideMenu-nav li {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px;
+    height: $sideMenuWidth;
     border-bottom: solid $colour4 1px;
     &:hover {
         cursor: pointer;
     }
+    &.active {
+        background-color: $colour4;
+    }
+}
+
+.saveThemeBtn {
+    width: $sideMenuWidth;
+    height: $sideMenuWidth;
+    font-size: 20px;
+    background-color: $colour1;
+    color: $white;
+    text-transform: uppercase;
+}
+
+.theme--unsaved .saveThemeBtn {
+    background-color: red;
 }

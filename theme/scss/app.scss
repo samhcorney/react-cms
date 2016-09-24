@@ -29,6 +29,14 @@ body {
 	font-family: 'Lato', sans-serif;
 }
 
+.title {
+	background-color: map-get( $theme, title );
+}
+
 .body {
-	background-color: map-get( $theme, colour4 );
+	background-color: map-get( $theme, body );
+}
+
+.footer {
+	background-color: map-get( $theme, footer );
 }

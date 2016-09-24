@@ -4,7 +4,6 @@ export class ThemeEditor extends React.Component<any, {}> {
 
     constructor( props : any ) {
         super( props );
-        this.handleChange = this.handleChange.bind( this );
     }
 
     handleChange ( event ) {
@@ -19,7 +18,12 @@ export class ThemeEditor extends React.Component<any, {}> {
         let themeTheme = this.props.themeTheme;
         let themeItems = [];
         for ( var key in themeTheme ) {
-            themeItems.push( <input key={ key } name={ key } type="text" value={ themeTheme[key] } onChange={ this.handleChange } /> )
+            themeItems.push(
+                <div>
+                    <label for={ key }>{ key }</label>
+                    <input key={ key } name={ key } type="text" value={ themeTheme[key] } onChange={ this.handleChange.bind( this ) } />
+                </div>
+            )
         }
         return (
             <p>{ themeItems }</p>

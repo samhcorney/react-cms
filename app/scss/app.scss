@@ -25,6 +25,9 @@
     $PARTIALS
 \*------------------------------------*/
 
+/* Elements */
+@import "partials/elements/_button";
+
 /* Components */
 @import "partials/components/_sideMenu";
 @import "partials/components/_primaryContentContainer";
@@ -34,13 +37,4 @@
 \*------------------------------------*/
 body {
 	font-family: 'Lato', sans-serif;
-}
-
-.save-theme {
-	position: fixed;
-	top: 0px;
-	right: 0px;
-	width: 100px;
-	height: 50px;
-	background-color: lightblue;
 }

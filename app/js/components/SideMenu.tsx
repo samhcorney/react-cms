@@ -16,20 +16,28 @@ export class SideMenu extends React.Component<any, {}> {
         this.props.onMenuItemClick( menuItem );
     }
 
+    saveTheme () {
+
+        this.props.onSaveTheme();
+    }
+
     render() {
 
         var menuItems = this.props.menuItems.map( ( menuItem: MenuItem ) => {
             return (
-                <li key={ menuItem.handle } onClick={ this.handleClick.bind( this, menuItem ) }>{ menuItem.title }</li>
+                <li key={ menuItem.handle } className={ menuItem.active ? 'active' : '' } onClick={ this.handleClick.bind( this, menuItem ) }>{ menuItem.title }</li>
             );
         });
 
         return (
-            <nav className ="sideMenu">
-                <ol>
-                    { menuItems }
-                </ol>
-            </nav>
+            <div className="sideMenu">
+                <button className="btn saveThemeBtn" onClick={ this.saveTheme.bind( this ) }>Save</button>
+                <nav className ="sideMenu-nav">
+                    <ol>
+                        { menuItems }
+                    </ol>
+                </nav>
+            </div>
         );
     }
 }

@@ -6,12 +6,15 @@ import * as React from 'react';
 import { ContentEditor } from './ContentEditor';
 import { ThemeEditor } from './ThemeEditor';
 
+/*
+ * Models
+ */
+import { MenuItem } from "../models/MenuItem"
+
 export class PrimaryContentContainer extends React.Component<any, {}> {
 
     constructor( props ) {
         super( props );
-        this.handleThemeContentChange = this.handleThemeContentChange.bind( this );
-        this.handleThemeThemeChange = this.handleThemeThemeChange.bind( this );
     }
 
     handleThemeContentChange () {
@@ -23,11 +26,14 @@ export class PrimaryContentContainer extends React.Component<any, {}> {
     }
 
     render() {
+
+        let activeMenuItem: MenuItem = this.props.menuItems.filter( ( menuItem: MenuItem ) => menuItem.active )[0];
+
         return (
             <div className="primaryContentContainer">
-                <h2>{ this.props.menuItem.title }</h2>
-                { this.props.menuItem.handle === 'contentEditor' ? <ContentEditor themeContent={ this.props.themeContent } onThemeContentChange={ this.handleThemeContentChange } /> : null }
-                { this.props.menuItem.handle === 'themeEditor' ? <ThemeEditor themeTheme={ this.props.themeTheme } onThemeThemeChange={ this.handleThemeThemeChange } /> : null }
+                <h2>{ activeMenuItem.title }</h2>
+                { activeMenuItem.handle === 'contentEditor' ? <ContentEditor themeContent={ this.props.themeContent } onThemeContentChange={ this.handleThemeContentChange.bind( this ) } /> : null }
+                { activeMenuItem.handle === 'themeEditor' ? <ThemeEditor themeTheme={ this.props.themeTheme } onThemeThemeChange={ this.handleThemeThemeChange.bind( this ) } /> : null }
             </div>
         );
     }

@@ -19,26 +19,23 @@ export class MyApp extends React.Component<any, {}> {
 
     state: any = {
         menuItems : [
-            { title: 'Content', handle: 'contentEditor' },
+            { title: 'Content', handle: 'contentEditor', active: true },
             { title: 'Theme', handle: 'themeEditor' }
         ],
         themeTemplate: '',
         themeContent: '',
-        themeTheme: ''
+        themeTheme: '',
+        themeSaved: true
     };
 
     constructor( props : any ) {
         super( props );
-        this.state.activeMenuItem = this.state.menuItems[0];
-        this.handleMenuItemClick = this.handleMenuItemClick.bind( this );
-        this.handleThemeContentChange = this.handleThemeContentChange.bind( this );
-        this.handleThemeThemeChange = this.handleThemeThemeChange.bind( this );
-        this.saveTheme = this.saveTheme.bind( this );
     }
 
-    handleMenuItemClick ( menuItem: MenuItem ) {
+    handleMenuItemClick ( activeMenuItem: MenuItem ) {
 
-        this.state.activeMenuItem = menuItem;
+        this.state.menuItems.forEach( ( menuItem: MenuItem ) => menuItem.active = false );
+        this.state.menuItems.filter( ( menuItem: MenuItem ) => menuItem.handle === activeMenuItem.handle )[0].active = true;
         this.setState( this.state );
     }
 
@@ -56,31 +53,48 @@ export class MyApp extends React.Component<any, {}> {
             });
     }
 
-    handleThemeContentChange () {}
+    handleThemeContentChange () {
 
-    handleThemeThemeChange () {}
+        this.state.themeSaved = false;
+        this.setState( this.state );
+    }
+
+    handleThemeThemeChange () {
+
+        this.state.themeSaved = false;
+        this.setState( this.state );
+    }
 
     saveTheme () {
 
         Promise.all( [ $.post( "http://localhost:3001/saveContent", this.state.themeContent ).promise(), $.post( "http://localhost:3001/saveTheme", this.state.themeTheme ).promise() ] )
-            .then( ( result: any ) => {} )
+            .then( ( result: any ) => {
+                this.state.themeSaved = true;
+                this.setState( this.state );
+            })
             .catch( ( error: any ) => {
                 console.log( 'Failed when saving theme', error );
             });
     }
 
     render () {
+
+        let pageClasses = 'pageContainer';
+        pageClasses = this.state.themeSaved ? pageClasses.concat( ' theme--saved' ) : pageClasses.concat( ' theme--unsaved' );
+
         return (
-            <div className="pageContainer">
-                <button className="save-theme" onClick={ this.saveTheme }>Save</button>
-                <SideMenu menuItems={ this.state.menuItems } onMenuItemClick={ this.handleMenuItemClick } />
+            <div className={ pageClasses }>
+                <SideMenu
+                    menuItems={ this.state.menuItems }
+                    onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
+                    onSaveTheme={ this.saveTheme.bind( this ) } />
                 <PrimaryContentContainer
-                    menuItem={ this.state.activeMenuItem }
+                    menuItems={ this.state.menuItems }
                     themeTemplate={ this.state.themeTemplate }
                     themeContent={ this.state.themeContent }
                     themeTheme={ this.state.themeTheme }
-                    onThemeContentChange={ this.handleThemeContentChange }
-                    onThemeThemeChange={ this.handleThemeThemeChange } />
+                    onThemeContentChange={ this.handleThemeContentChange.bind( this ) }
+                    onThemeThemeChange={ this.handleThemeThemeChange.bind( this ) } />
             </div>
         );
     }
