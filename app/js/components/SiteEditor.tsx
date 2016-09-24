@@ -11,7 +11,7 @@ export class SiteEditor extends React.Component<any, {}> {
     }
 
     render() {
-        this.html = { __html: Handlebars.compile( this.props.templateHtml )( this.props.templateContent ) }
+        this.html = { __html: Handlebars.compile( this.props.themeTemplate )( this.props.themeContent ) }
         return (
             <div dangerouslySetInnerHTML={ this.html } />
         );

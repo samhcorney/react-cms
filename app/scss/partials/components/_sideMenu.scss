@@ -4,7 +4,7 @@
     left: 0;
     bottom: 0;
     width: $sideMenuWidth;
-    background-color: map-get( $theme, colour2 );
+    background-color: $colour2;
 
 }
 
@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: center;
     height: 200px;
-    border-bottom: solid map-get( $theme, colour4 ) 1px;
+    border-bottom: solid $colour4 1px;
     &:hover {
         cursor: pointer;
     }

@@ -23,15 +23,18 @@ export class MyApp extends React.Component<any, {}> {
             { title: 'Content', handle: 'contentEditor' },
             { title: 'Theme', handle: 'themeEditor' }
         ],
-        templateHtml: '',
-        templateContent: '',
-        templateTheme: ''
+        themeTemplate: '',
+        themeContent: '',
+        themeTheme: ''
     };
 
     constructor( props : any ) {
         super( props );
-        this.state.activeMenuItem = this.state.menuItems[2];
+        this.state.activeMenuItem = this.state.menuItems[1];
         this.handleMenuItemClick = this.handleMenuItemClick.bind( this );
+        this.handleThemeContentChange = this.handleThemeContentChange.bind( this );
+        this.handleThemeThemeChange = this.handleThemeThemeChange.bind( this );
+        this.saveTheme = this.saveTheme.bind( this );
     }
 
     handleMenuItemClick ( menuItem: MenuItem ) {
@@ -42,37 +45,43 @@ export class MyApp extends React.Component<any, {}> {
 
     componentWillMount () {
 
-        Promise.all( [ $.get( "template/template.html" ).promise(), $.get( "template/content.json" ).promise(), $.get( "template/theme.json" ).promise() ] )
+        Promise.all( [ $.get( "theme/template.html" ).promise(), $.get( "theme/content.json" ).promise(), $.get( "theme/theme.json" ).promise() ] )
             .then( ( result: any[] ) => {
-                this.state.templateHtml = result[0];
-                this.state.templateContent = result[1];
-                this.state.templateTheme = result[2];
+                this.state.themeTemplate = result[0];
+                this.state.themeContent = result[1];
+                this.state.themeTheme = result[2];
                 this.setState( this.state );
             })
             .catch( ( error: any ) => {
-                console.log( 'Failed when setting site content ', error );
+                console.log( 'Failed when setting theme', error );
             });
     }
 
-    handleTemplateContentChange () {
+    handleThemeContentChange () {}
 
-    }
+    handleThemeThemeChange () {}
 
-    handleTemplateThemeChange () {
+    saveTheme () {
 
+        Promise.all( [ $.post( "http://localhost:3001/saveContent", this.state.themeContent ).promise(), $.post( "http://localhost:3001/saveTheme", this.state.themeTheme ).promise() ] )
+            .then( ( result: any ) => {} )
+            .catch( ( error: any ) => {
+                console.log( 'Failed when saving theme', error );
+            });
     }
 
     render () {
         return (
             <div className="pageContainer">
+                <button className="save-theme" onClick={ this.saveTheme }>Save</button>
                 <SideMenu menuItems={ this.state.menuItems } onMenuItemClick={ this.handleMenuItemClick } />
                 <PrimaryContentContainer
                     menuItem={ this.state.activeMenuItem }
-                    templateHtml={ this.state.templateHtml }
-                    templateContent={ this.state.templateContent }
-                    templateTheme={ this.state.templateTheme }
-                    onTemplateContentChange={ this.handleTemplateContentChange }
-                    onTemplateThemeChange={ this.handleTemplateThemeChange } />
+                    themeTemplate={ this.state.themeTemplate }
+                    themeContent={ this.state.themeContent }
+                    themeTheme={ this.state.themeTheme }
+                    onThemeContentChange={ this.handleThemeContentChange }
+                    onThemeThemeChange={ this.handleThemeThemeChange } />
             </div>
         );
     }

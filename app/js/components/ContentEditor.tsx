@@ -9,17 +9,17 @@ export class ContentEditor extends React.Component<any, {}> {
 
     handleChange ( event ) {
 
-        this.props.templateContent[event.target.name] = event.target.value;
-        this.props.onTemplateContentChange( this.props.templateContent );
-        this.setState( this.props.templateContent );
+        this.props.themeContent[event.target.name] = event.target.value;
+        this.props.onThemeContentChange( this.props.themeContent );
+        this.setState( this.props.themeContent );
     }
 
     render () {
 
-        let templateContent = this.props.templateContent;
+        let themeContent = this.props.themeContent;
         let contentItems = [];
-        for ( var key in templateContent ) {
-            contentItems.push( <input key={ key } name={ key } type="text" value={ templateContent[key] } onChange={ this.handleChange } /> )
+        for ( var key in themeContent ) {
+            contentItems.push( <input key={ key } name={ key } type="text" value={ themeContent[key] } onChange={ this.handleChange } /> )
         }
         return (
             <p>{ contentItems }</p>

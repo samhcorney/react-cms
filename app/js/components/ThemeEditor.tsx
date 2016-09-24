@@ -9,17 +9,17 @@ export class ThemeEditor extends React.Component<any, {}> {
 
     handleChange ( event ) {
 
-        this.props.templateTheme[event.target.name] = event.target.value;
-        this.props.onTemplateThemeChange( this.props.templateTheme );
-        this.setState( this.props.templateTheme );
+        this.props.themeTheme[event.target.name] = event.target.value;
+        this.props.onThemeThemeChange( this.props.themeTheme );
+        this.setState( this.props.themeTheme );
     }
 
     render () {
 
-        let templateTheme = this.props.templateTheme;
+        let themeTheme = this.props.themeTheme;
         let themeItems = [];
-        for ( var key in templateTheme ) {
-            themeItems.push( <input key={ key } name={ key } type="text" value={ templateTheme[key] } onChange={ this.handleChange } /> )
+        for ( var key in themeTheme ) {
+            themeItems.push( <input key={ key } name={ key } type="text" value={ themeTheme[key] } onChange={ this.handleChange } /> )
         }
         return (
             <p>{ themeItems }</p>

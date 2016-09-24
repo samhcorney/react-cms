@@ -11,25 +11,25 @@ export class PrimaryContentContainer extends React.Component<any, {}> {
 
     constructor( props ) {
         super( props );
-        this.handleTemplateContentChange = this.handleTemplateContentChange.bind( this );
-        this.handleTemplateThemeChange = this.handleTemplateThemeChange.bind( this );
+        this.handleThemeContentChange = this.handleThemeContentChange.bind( this );
+        this.handleThemeThemeChange = this.handleThemeThemeChange.bind( this );
     }
 
-    handleTemplateContentChange () {
-        this.props.onTemplateContentChange( this.props.templateContent );
+    handleThemeContentChange () {
+        this.props.onThemeContentChange( this.props.themeContent );
     }
 
-    handleTemplateThemeChange () {
-        this.props.onTemplateThemeChange( this.props.templateTheme );
+    handleThemeThemeChange () {
+        this.props.onThemeThemeChange( this.props.themeTheme );
     }
 
     render() {
         return (
             <div className="primaryContentContainer">
                 <h2>{ this.props.menuItem.title }</h2>
-                { this.props.menuItem.handle === 'siteEditor' ? <SiteEditor templateHtml={ this.props.templateHtml } templateContent={ this.props.templateContent } /> : null }
-                { this.props.menuItem.handle === 'contentEditor' ? <ContentEditor templateContent={ this.props.templateContent } onTemplateContentChange={ this.handleTemplateContentChange } /> : null }
-                { this.props.menuItem.handle === 'themeEditor' ? <ThemeEditor templateTheme={ this.props.templateTheme } onTemplateThemeChange={ this.handleTemplateThemeChange } /> : null }
+                { this.props.menuItem.handle === 'siteEditor' ? <SiteEditor themeTemplate={ this.props.themeTemplate } themeContent={ this.props.themeContent } /> : null }
+                { this.props.menuItem.handle === 'contentEditor' ? <ContentEditor themeContent={ this.props.themeContent } onThemeContentChange={ this.handleThemeContentChange } /> : null }
+                { this.props.menuItem.handle === 'themeEditor' ? <ThemeEditor themeTheme={ this.props.themeTheme } onThemeThemeChange={ this.handleThemeThemeChange } /> : null }
             </div>
         );
     }
