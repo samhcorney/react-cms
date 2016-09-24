@@ -19,17 +19,18 @@ export class MyApp extends React.Component<any, {}> {
 
     state: any = {
         menuItems : [
-            { title: 'Site Editor', handle: 'siteEditor' },
-            { title: 'Content Editor', handle: 'contentEditor' },
-            { title: 'Palette', handle: 'palette' }
+            { title: 'Site', handle: 'siteEditor' },
+            { title: 'Content', handle: 'contentEditor' },
+            { title: 'Theme', handle: 'themeEditor' }
         ],
         templateHtml: '',
-        templateData: ''
+        templateContent: '',
+        templateTheme: ''
     };
 
     constructor( props : any ) {
         super( props );
-        this.state.activeMenuItem = this.state.menuItems[1];
+        this.state.activeMenuItem = this.state.menuItems[2];
         this.handleMenuItemClick = this.handleMenuItemClick.bind( this );
     }
 
@@ -41,10 +42,11 @@ export class MyApp extends React.Component<any, {}> {
 
     componentWillMount () {
 
-        Promise.all( [ $.get( "templates/one.html" ).promise(), $.get( "data/one.json" ).promise() ] )
+        Promise.all( [ $.get( "template/template.html" ).promise(), $.get( "template/content.json" ).promise(), $.get( "template/theme.json" ).promise() ] )
             .then( ( result: any[] ) => {
                 this.state.templateHtml = result[0];
-                this.state.templateData = result[1];
+                this.state.templateContent = result[1];
+                this.state.templateTheme = result[2];
                 this.setState( this.state );
             })
             .catch( ( error: any ) => {
@@ -52,16 +54,25 @@ export class MyApp extends React.Component<any, {}> {
             });
     }
 
+    handleTemplateContentChange () {
 
-    handleTemplateDataChange () {
-        
+    }
+
+    handleTemplateThemeChange () {
+
     }
 
     render () {
         return (
             <div className="pageContainer">
                 <SideMenu menuItems={ this.state.menuItems } onMenuItemClick={ this.handleMenuItemClick } />
-                <PrimaryContentContainer menuItem={ this.state.activeMenuItem } templateHtml={ this.state.templateHtml } templateData={ this.state.templateData } onTemplateDataChange={ this.handleTemplateDataChange } />
+                <PrimaryContentContainer
+                    menuItem={ this.state.activeMenuItem }
+                    templateHtml={ this.state.templateHtml }
+                    templateContent={ this.state.templateContent }
+                    templateTheme={ this.state.templateTheme }
+                    onTemplateContentChange={ this.handleTemplateContentChange }
+                    onTemplateThemeChange={ this.handleTemplateThemeChange } />
             </div>
         );
     }

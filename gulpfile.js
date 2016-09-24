@@ -26,6 +26,11 @@ var svgSymbols = require( 'gulp-svg-symbols' );
 // BROWSER SYNC
 var browserSync = require( 'browser-sync' ).create();
 
+// JSON TO SASS
+var jsonSass = require( 'json-sass' );
+var rename = require( 'gulp-rename' );
+var fs = require( 'fs' );
+
 
 
 
@@ -77,7 +82,7 @@ var sassOptions = {
     }
 };
 
-gulp.task( "scss", function () {
+gulp.task( "scss", [ 'json-to-sass' ], function () {
     return gulp.src( sassOptions.src )
         .pipe( sourcemaps.init() )
         .pipe( sass( sassOptions.sass ) )
@@ -114,13 +119,29 @@ gulp.task( 'svg', function () {
 
 
 /*------------------------------------*\
+    JSON TO SASS
+\*------------------------------------*/
+gulp.task( "json-to-sass", function () {
+    return fs.createReadStream( 'template/theme.json' )
+        .pipe( jsonSass({
+            prefix: '$theme: ',
+        }))
+        .pipe( source( 'theme.json' ) )
+        .pipe( rename( '_theme.scss' ) )
+        .pipe( gulp.dest( 'app/scss/modules/variables' ) );
+});
+
+
+
+
+/*------------------------------------*\
     DEFAULT
 \*------------------------------------*/
 gulp.task( 'default', [ 'js', 'scss', 'svg' ], function () {
     browserSync.init( [ 'build/css/*.css', 'build/js/*.js' ], {
         server: "./"
     });
-    gulp.watch( [ 'app/**/*.scss' ], [ 'scss' ] );
+    gulp.watch( [ 'app/**/*.scss', 'template/theme.json' ], [ 'scss' ] );
     gulp.watch( [ 'app/fonts/svg/**/*.svg' ], [ 'svg' ] );
     gulp.watch( [ '*.html', 'build/fonts/*.css' ], function () {
         browserSync.reload();

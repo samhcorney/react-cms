@@ -9,20 +9,20 @@ export class ContentEditor extends React.Component<any, {}> {
 
     handleChange ( event ) {
 
-        this.props.templateData[event.target.name] = event.target.value;
-        this.props.onTemplateDataChange( this.props.templateData );
-        this.setState( this.props.templateData );
+        this.props.templateContent[event.target.name] = event.target.value;
+        this.props.onTemplateContentChange( this.props.templateContent );
+        this.setState( this.props.templateContent );
     }
 
     render () {
 
-        let templateData = this.props.templateData;
-        let dataItems = [];
-        for ( var key in templateData ) {
-            dataItems.push( <input key={ key } name={ key } type="text" value={ templateData[key] } onChange={ this.handleChange } /> )
+        let templateContent = this.props.templateContent;
+        let contentItems = [];
+        for ( var key in templateContent ) {
+            contentItems.push( <input key={ key } name={ key } type="text" value={ templateContent[key] } onChange={ this.handleChange } /> )
         }
         return (
-            <p>{ dataItems }</p>
+            <p>{ contentItems }</p>
         );
     }
 }
