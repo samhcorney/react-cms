@@ -3,7 +3,6 @@ import * as React from 'react';
 /*
  * Components
  */
-import { SiteEditor } from './SiteEditor';
 import { ContentEditor } from './ContentEditor';
 import { ThemeEditor } from './ThemeEditor';
 
@@ -27,7 +26,6 @@ export class PrimaryContentContainer extends React.Component<any, {}> {
         return (
             <div className="primaryContentContainer">
                 <h2>{ this.props.menuItem.title }</h2>
-                { this.props.menuItem.handle === 'siteEditor' ? <SiteEditor themeTemplate={ this.props.themeTemplate } themeContent={ this.props.themeContent } /> : null }
                 { this.props.menuItem.handle === 'contentEditor' ? <ContentEditor themeContent={ this.props.themeContent } onThemeContentChange={ this.handleThemeContentChange } /> : null }
                 { this.props.menuItem.handle === 'themeEditor' ? <ThemeEditor themeTheme={ this.props.themeTheme } onThemeThemeChange={ this.handleThemeThemeChange } /> : null }
             </div>

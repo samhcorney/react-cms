@@ -26,11 +26,6 @@ var svgSymbols = require( 'gulp-svg-symbols' );
 // BROWSER SYNC
 var browserSync = require( 'browser-sync' ).create();
 
-// JSON TO SASS
-var jsonSass = require( 'json-sass' );
-var rename = require( 'gulp-rename' );
-var fs = require( 'fs' );
-
 
 
 
@@ -121,88 +116,13 @@ gulp.task( 'svg', function () {
 /*------------------------------------*\
     DEFAULT
 \*------------------------------------*/
-gulp.task( 'default', [ 'js', 'scss', 'svg', 'theme-scss' ], function () {
+gulp.task( 'default', [ 'js', 'scss', 'svg' ], function () {
     browserSync.init( [ 'build/css/*.css', 'build/js/*.js' ], {
         server: "./"
     });
     gulp.watch( [ 'app/**/*.scss' ], [ 'scss' ] );
     gulp.watch( [ 'app/fonts/svg/**/*.svg' ], [ 'svg' ] );
-    gulp.watch( [ 'theme/**/*.scss', 'theme/theme.json' ], [ 'theme-scss' ] );
     gulp.watch( [ '*.html', 'build/fonts/*.css' ], function () {
         browserSync.reload();
     });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*------------------------------------*\
-    GULPTASKS FOR THE THEME
-\*------------------------------------*/
-
-
-
-
-/*------------------------------------*\
-    SCSS
-\*------------------------------------*/
-var sassOptionsTheme = {
-    src: 'theme/scss/**/*.scss',
-    dest: 'build/css',
-    sass: {
-        includePaths: bourbon.includePaths.concat( neat.includePaths )
-    },
-    onError: function( error ) {
-        console.error( error.message );
-        this.emit( 'end' );
-    },
-    autoprefixer: {
-        browsers: [ 'last 2 versions' ],
-        cascade: false
-    }
-};
-
-gulp.task( "theme-scss", [ 'json-to-sass' ], function () {
-    return gulp.src( sassOptionsTheme.src )
-        .pipe( sourcemaps.init() )
-        .pipe( sass( sassOptionsTheme.sass ) )
-        .on( 'error', sassOptionsTheme.onError )
-        .pipe( autoprefixer( sassOptionsTheme.autoprefixer) )
-        .pipe( sourcemaps.write() )
-        .pipe( rename( 'theme.css' ) )
-        .pipe( gulp.dest( sassOptionsTheme.dest ) );
-});
-
-
-
-
-/*------------------------------------*\
-    JSON TO SASS
-\*------------------------------------*/
-gulp.task( "json-to-sass", function () {
-    return fs.createReadStream( 'theme/theme.json' )
-        .pipe( jsonSass({
-            prefix: '$theme: ',
-        }))
-        .pipe( source( 'theme.json' ) )
-        .pipe( rename( '_theme.scss' ) )
-        .pipe( gulp.dest( 'theme/scss/modules/variables' ) );
 });

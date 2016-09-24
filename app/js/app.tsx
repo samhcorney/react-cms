@@ -19,7 +19,6 @@ export class MyApp extends React.Component<any, {}> {
 
     state: any = {
         menuItems : [
-            { title: 'Site', handle: 'siteEditor' },
             { title: 'Content', handle: 'contentEditor' },
             { title: 'Theme', handle: 'themeEditor' }
         ],
@@ -30,7 +29,7 @@ export class MyApp extends React.Component<any, {}> {
 
     constructor( props : any ) {
         super( props );
-        this.state.activeMenuItem = this.state.menuItems[1];
+        this.state.activeMenuItem = this.state.menuItems[0];
         this.handleMenuItemClick = this.handleMenuItemClick.bind( this );
         this.handleThemeContentChange = this.handleThemeContentChange.bind( this );
         this.handleThemeThemeChange = this.handleThemeThemeChange.bind( this );
