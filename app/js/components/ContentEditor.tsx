@@ -8,7 +8,7 @@ export class ContentEditor extends React.Component<any, {}> {
 
     handleChange ( event ) {
 
-        this.props.themeContent[event.target.name] = event.target.value;
+        this.props.themeContent[event.target.name]._content = event.target.value;
         this.props.onThemeContentChange( this.props.themeContent );
         this.setState( this.props.themeContent );
     }
@@ -20,8 +20,8 @@ export class ContentEditor extends React.Component<any, {}> {
         for ( var key in themeContent ) {
             contentItems.push(
                 <div>
-                    <label for={ key }>{ key }</label>
-                    <input key={ key } name={ key } id={ key } type="text" value={ themeContent[key] } onChange={ this.handleChange.bind( this ) } />
+                    <label for={ key }>{ themeContent[key]._name }</label>
+                    <input key={ key } name={ key } id={ key } type="text" value={ themeContent[key]._content } x={ themeContent[key] } onChange={ this.handleChange.bind( this ) } />
                 </div>
             )
         }

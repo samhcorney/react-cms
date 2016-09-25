@@ -51,11 +51,31 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.post('/saveContent', function(req, res, next) {
 
     fs.readFile( '../theme/template.html', function ( err, template ) {
-       fs.writeFile( '../theme/index.html', Handlebars.compile( template.toString() )( req.body ) );
        fs.writeFile( '../theme/content.json', JSON.stringify( req.body ) );
+       fs.writeFile( '../theme/index.html', Handlebars.compile( template.toString() )( removeMetadata( req.body ) ) );
    });
    res.send('done');
 });
+
+function removeMetadata ( data ) {
+    var result = {};
+
+    if ( Object.prototype.toString.apply( data ) === '[object Object]' || Array.isArray( data ) ) {
+        result = data;
+        for ( i in data ) {
+            if ( data[i]._content ) {
+                result[i] = removeMetadata( data[i]._content );
+            }
+            else {
+                result[i] = data[i];
+            }
+        }
+    }
+    else {
+        result = data;
+    }
+    return result;
+}
 
 /*------------------------------------*\
     SAVE THEME
