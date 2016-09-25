@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+import { Text } from './contenttypes/Text';
+import { TextArea } from './contenttypes/TextArea';
+import { Checkbox } from './contenttypes/Checkbox';
+
 export class ContentEditor extends React.Component<any, {}> {
 
     constructor( props : any ) {
@@ -7,6 +11,8 @@ export class ContentEditor extends React.Component<any, {}> {
     }
 
     handleChange ( event ) {
+
+        console.log( event.target.checked );
 
         this.props.themeContent[event.target.name]._content = event.target.value;
         this.props.onThemeContentChange( this.props.themeContent );
@@ -18,15 +24,32 @@ export class ContentEditor extends React.Component<any, {}> {
         let themeContent = this.props.themeContent;
         let contentItems = [];
         for ( var key in themeContent ) {
-            contentItems.push(
-                <div>
-                    <label for={ key }>{ themeContent[key]._name }</label>
-                    <input key={ key } name={ key } id={ key } type="text" value={ themeContent[key]._content } x={ themeContent[key] } onChange={ this.handleChange.bind( this ) } />
+
+            let content;
+
+            switch( themeContent[key]._type ) {
+
+                case 'text':
+                    content = <Text content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+                    break;
+                case 'textarea':
+                    content = <TextArea content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+                    break;
+                case 'checkbox':
+                    content = <Checkbox content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+                    break;
+                default:
+                    content = <Text content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+            }
+
+            contentItems.push (
+                <div key={ key }>
+                    { content }
                 </div>
             )
         }
         return (
-            <p>{ contentItems }</p>
+            <div>{ contentItems }</div>
         );
     }
 }

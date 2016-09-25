@@ -1,1 +1,1 @@
-{"title":{"_type":"text","_name":"Title","_content":"Site Title"},"body":{"_type":"text","_name":"Site body","_content":"Body Content"},"footer":{"_type":"text","_name":"SIte footer","_content":"Footer Content"}}
+{"title":{"_type":"text","_name":"Title","_content":"Title Content"},"body":{"_type":"textarea","_name":"Site body","_content":"Body Content"},"footer":{"_type":"text","_name":"SIte footer","_content":"Footer Content"},"showbody":{"_type":"checkbox","_name":"Show Body","_content":"false"}}

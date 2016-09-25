@@ -43,8 +43,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 
 
-
-
 /*------------------------------------*\
     SAVE CONTENT
 \*------------------------------------*/
@@ -62,13 +60,8 @@ function removeMetadata ( data ) {
 
     if ( Object.prototype.toString.apply( data ) === '[object Object]' || Array.isArray( data ) ) {
         result = data;
-        for ( i in data ) {
-            if ( data[i]._content ) {
-                result[i] = removeMetadata( data[i]._content );
-            }
-            else {
-                result[i] = data[i];
-            }
+        for ( var i in data ) {
+            result[i] = data[i]._content !== undefined ? removeMetadata( data[i]._content ) : data[i];
         }
     }
     else {
@@ -76,6 +69,9 @@ function removeMetadata ( data ) {
     }
     return result;
 }
+
+
+
 
 /*------------------------------------*\
     SAVE THEME
@@ -164,3 +160,93 @@ function jsonToScss () {
         .pipe( rename( '_theme.scss' ) )
         .pipe( gulp.dest( '../theme/scss/modules/variables' ) );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+testData = {
+    "body":{
+        "_type":"object",
+        "_content":{
+            "title":{
+                "_type":"text",
+                "_content":"Body title"
+            },
+            "bodyText":{
+                "_type":"object",
+                "_content":{
+                    "bodyTextTitle": {
+                        "_type" : "text",
+                        "_content" : "Body text title"
+                    },
+                    "bodyTextContent": {
+                        "_type":"list",
+                        "_content":[
+                            {
+                                "_type":"text",
+                                "_content":[
+                                    {
+                                        "one":1
+                                    },
+                                    {
+                                        "two":2
+                                    }
+                                ]
+                            },
+                            {
+                                "_type":"text",
+                                "_content":"Second para"
+                            }
+                        ]
+                    }
+                }
+            },
+
+            "bodyFooter":{
+                "_type":"list",
+                "_content":[
+                    {
+                        "_type":"text",
+                        "_content":"First para footer"
+                    },
+                    {
+                        "_type":"text",
+                        "_content":"Second para footer"
+                    }
+                ]
+            }
+        }
+    },
+    "footer":{
+        "_type":"text",
+        "_content":"Footer Text"
+    },
+    "more":{
+        "_type":"text",
+        "_content":true
+    },
+    "number":{
+        "_type":"text",
+        "_content":1234
+    },
+    "nully":{
+        "_type":"text",
+        "_content":null
+    },
+    "zero":{
+        "_type":"text",
+        "_content":0
+    },
+    "negative":{
+        "_type":"text",
+        "_content":-15
+    }
+};
