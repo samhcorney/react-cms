@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Text } from './contenttypes/Text';
 import { TextArea } from './contenttypes/TextArea';
+import { Number } from './contenttypes/Number';
 import { Checkbox } from './contenttypes/Checkbox';
 
 export class ContentEditor extends React.Component<any, {}> {
@@ -31,6 +32,9 @@ export class ContentEditor extends React.Component<any, {}> {
                     break;
                 case 'textarea':
                     content = <TextArea content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+                    break;
+                case 'number':
+                    content = <Number content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
                     break;
                 case 'checkbox':
                     content = <Checkbox content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
