@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { AbstractContentType } from './AbstractContentType';
 
-export class Text extends AbstractContentType {
+export class Colour extends AbstractContentType {
 
     constructor( props : any ) {
         super( props );

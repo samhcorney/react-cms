@@ -1,0 +1,23 @@
+.contentCard {
+    @include content-padding;
+    border-bottom: solid 1px $colour4;
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.contentCard-container {
+    @include row;
+}
+
+.contentCard-label {
+    @include media( $desktop ) {
+        @include span-columns(2);
+    }
+}
+
+.contentCard-content {
+    @include media( $desktop ) {
+        @include span-columns(10);
+    }
+}

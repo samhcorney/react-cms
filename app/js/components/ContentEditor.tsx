@@ -11,46 +11,53 @@ export class ContentEditor extends React.Component<any, {}> {
         super( props );
     }
 
-    handleChange ( event ) {
+    handleChange () {
 
-        this.props.onThemeContentChange( this.props.themeContent );
-        this.setState( this.props.themeContent );
+        this.props.onContentChange( this.props.content );
     }
 
     render () {
 
-        let themeContent = this.props.themeContent;
+        let allContent = this.props.content;
         let contentItems = [];
-        for ( var key in themeContent ) {
+
+        for ( var key in allContent ) {
 
             let content;
 
-            switch( themeContent[key]._type ) {
-
+            switch( allContent[key]._type ) {
                 case 'text':
-                    content = <Text content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+                    content = <Text content={ allContent[key] } id={ key } onContentChange={ this.handleChange.bind( this ) } />;
                     break;
                 case 'textarea':
-                    content = <TextArea content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+                    content = <TextArea content={ allContent[key] } id={ key } onContentChange={ this.handleChange.bind( this ) } />;
                     break;
                 case 'number':
-                    content = <Number content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+                    content = <Number content={ allContent[key] } id={ key } onContentChange={ this.handleChange.bind( this ) } />;
                     break;
                 case 'checkbox':
-                    content = <Checkbox content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+                    content = <Checkbox content={ allContent[key] } id={ key } onContentChange={ this.handleChange.bind( this ) } />;
+                    break;
+                case 'colour':
+                    content = <Text content={ allContent[key] } id={ key } onContentChange={ this.handleChange.bind( this ) } />;
                     break;
                 default:
-                    content = <Text content={ themeContent[key] } id={ key } onThemeContentChange={ this.handleChange.bind( this ) } />;
+                    content = <Text content={ allContent[key] } id={ key } onContentChange={ this.handleChange.bind( this ) } />;
             }
 
             contentItems.push (
-                <div key={ key }>
-                    { content }
+                <div className="contentCard" key={ key }>
+                    <div className="contentCard-container">
+                        <h4 className="contentCard-label">{ allContent[key]._name }</h4>
+                        <div className="contentCard-content">
+                            { content }
+                        </div>
+                    </div>
                 </div>
             )
         }
         return (
-            <div>{ contentItems }</div>
+            <div className="contentEditor">{ contentItems }</div>
         );
     }
 }

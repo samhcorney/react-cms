@@ -1,0 +1,6 @@
+textarea {
+    @include inputs;
+    resize: none;
+    height: 200px;
+    width: 100%;
+}

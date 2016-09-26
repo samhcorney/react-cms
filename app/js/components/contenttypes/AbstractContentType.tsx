@@ -9,6 +9,6 @@ export abstract class AbstractContentType extends React.Component<any, {}> {
     handleChange ( event ) {
 
         this.props.content._content = event.target.value;
-        this.props.onThemeContentChange( event );
+        this.props.onContentChange( event );
     }
 }

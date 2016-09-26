@@ -8,23 +8,23 @@ var $ = require( 'jquery' );
  * Components
  */
 import { SideMenu } from './components/SideMenu';
-import { PrimaryContentContainer } from './components/PrimaryContentContainer';
+import { ContentEditor } from './components/ContentEditor';
 
 /*
  * Models
  */
+import { State } from "./models/State"
 import { MenuItem } from "./models/MenuItem"
 
 export class MyApp extends React.Component<any, {}> {
 
-    state: any = {
+    state: State = {
         menuItems : [
             { title: 'Content', handle: 'contentEditor', active: true },
             { title: 'Theme', handle: 'themeEditor' }
         ],
-        themeTemplate: '',
-        themeContent: '',
-        themeTheme: '',
+        themeContent: {},
+        themeTheme: {},
         themeSaved: true
     };
 
@@ -34,18 +34,15 @@ export class MyApp extends React.Component<any, {}> {
 
     handleMenuItemClick ( activeMenuItem: MenuItem ) {
 
-        this.state.menuItems.forEach( ( menuItem: MenuItem ) => menuItem.active = false );
-        this.state.menuItems.filter( ( menuItem: MenuItem ) => menuItem.handle === activeMenuItem.handle )[0].active = true;
         this.setState( this.state );
     }
 
     componentWillMount () {
 
-        Promise.all( [ $.get( "theme/template.html" ).promise(), $.get( "theme/content.json" ).promise(), $.get( "theme/theme.json" ).promise() ] )
+        Promise.all( [ $.get( "theme/content.json" ).promise(), $.get( "theme/theme.json" ).promise() ] )
             .then( ( result: any[] ) => {
-                this.state.themeTemplate = result[0];
-                this.state.themeContent = result[1];
-                this.state.themeTheme = result[2];
+                this.state.themeContent = result[0];
+                this.state.themeTheme = result[1];
                 this.setState( this.state );
             })
             .catch( ( error: any ) => {
@@ -67,7 +64,10 @@ export class MyApp extends React.Component<any, {}> {
 
     saveTheme () {
 
-        Promise.all( [ $.post( { url: "http://localhost:3005/saveContent", data: JSON.stringify( this.state.themeContent ), contentType: "application/json" } ).promise(), $.post( "http://localhost:3005/saveTheme", this.state.themeTheme ).promise() ] )
+        Promise.all([
+                $.post( { url: "http://localhost:3005/saveContent", data: JSON.stringify( this.state.themeContent ), contentType: "application/json" } ).promise(),
+                $.post( { url: "http://localhost:3005/saveTheme", data: JSON.stringify( this.state.themeTheme ), contentType: "application/json" } ).promise()
+            ])
             .then( ( result: any ) => {
                 this.state.themeSaved = true;
                 this.setState( this.state );
@@ -81,20 +81,29 @@ export class MyApp extends React.Component<any, {}> {
 
         let pageClasses = 'pageContainer';
         pageClasses = this.state.themeSaved ? pageClasses.concat( ' theme--saved' ) : pageClasses.concat( ' theme--unsaved' );
+        let content;
+        let changeHandler;
+
+        switch( this.state.menuItems.filter( ( menuItem: MenuItem ) => menuItem.active )[0].handle ) {
+            case 'contentEditor':
+                content = this.state.themeContent;
+                changeHandler = this.handleThemeContentChange.bind( this );
+                break;
+            case 'themeEditor':
+                content = this.state.themeTheme;
+                changeHandler = this.handleThemeThemeChange.bind( this );
+                break;
+            default:
+                content = this.state.themeContent;
+                changeHandler = this.handleThemeContentChange.bind( this );
+        }
 
         return (
             <div className={ pageClasses }>
-                <SideMenu
-                    menuItems={ this.state.menuItems }
+                <SideMenu menuItems={ this.state.menuItems }
                     onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
                     onSaveTheme={ this.saveTheme.bind( this ) } />
-                <PrimaryContentContainer
-                    menuItems={ this.state.menuItems }
-                    themeTemplate={ this.state.themeTemplate }
-                    themeContent={ this.state.themeContent }
-                    themeTheme={ this.state.themeTheme }
-                    onThemeContentChange={ this.handleThemeContentChange.bind( this ) }
-                    onThemeThemeChange={ this.handleThemeThemeChange.bind( this ) } />
+                <ContentEditor content={ content } onContentChange={ changeHandler } />
             </div>
         );
     }

@@ -74,8 +74,10 @@ function removeMetadata ( data ) {
 app.post('/saveTheme', function(req, res, next) {
 
     fs.writeFile( '../theme/theme.json', JSON.stringify( req.body ), function(){
-        jsonToScss();
-        themeScss();
+        fs.writeFile( '../theme/temporaryhackdeleteme.json', JSON.stringify( removeMetadata( req.body ) ), function () {
+            jsonToScss();
+            themeScss();
+        });
     });
     res.send('done');
 });
@@ -147,7 +149,7 @@ function themeScss() {
     JSON TO SASS
 \*------------------------------------*/
 function jsonToScss () {
-    return fs.createReadStream( '../theme/theme.json' )
+    return fs.createReadStream( '../theme/temporaryhackdeleteme.json' )
         .pipe( jsonSass({
             prefix: '$theme: ',
         }))

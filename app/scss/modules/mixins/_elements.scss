@@ -1,0 +1,9 @@
+@mixin inputs {
+    padding: 10px;
+    &:focus {
+        outline: none;
+    }
+    border-radius: $global-border-radius;
+    border: solid $colour3 1px;
+    font-size: 15px;
+}

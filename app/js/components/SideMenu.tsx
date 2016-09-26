@@ -11,9 +11,11 @@ export class SideMenu extends React.Component<any, {}> {
         super( props );
     }
 
-    handleClick ( menuItem: MenuItem ) {
+    handleClick ( menuItemClicked: MenuItem ) {
 
-        this.props.onMenuItemClick( menuItem );
+        this.props.menuItems.forEach( ( menuItem: MenuItem ) => menuItem.active = false );
+        this.props.menuItems.filter( ( menuItem: MenuItem ) => menuItem.handle === menuItemClicked.handle )[0].active = true;
+        this.props.onMenuItemClick( this.props.menuItems );
     }
 
     saveTheme () {
@@ -31,7 +33,7 @@ export class SideMenu extends React.Component<any, {}> {
 
         return (
             <div className="sideMenu">
-                <button className="btn saveThemeBtn" onClick={ this.saveTheme.bind( this ) }>Save</button>
+                <button className="saveThemeBtn" onClick={ this.saveTheme.bind( this ) }>Save</button>
                 <nav className ="sideMenu-nav">
                     <ol>
                         { menuItems }
