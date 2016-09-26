@@ -10,9 +10,7 @@ export class Checkbox extends AbstractContentType {
 
     handleChange ( event ) {
 
-        console.log( event.target.checked );
-
-        event.target.value = event.target.checked;
+        this.props.content._content = event.target.checked;
         this.props.onThemeContentChange( event );
     }
 

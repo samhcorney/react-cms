@@ -12,9 +12,6 @@ export class ContentEditor extends React.Component<any, {}> {
 
     handleChange ( event ) {
 
-        console.log( event.target.checked );
-
-        this.props.themeContent[event.target.name]._content = event.target.value;
         this.props.onThemeContentChange( this.props.themeContent );
         this.setState( this.props.themeContent );
     }

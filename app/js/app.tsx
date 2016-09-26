@@ -67,7 +67,7 @@ export class MyApp extends React.Component<any, {}> {
 
     saveTheme () {
 
-        Promise.all( [ $.post( "http://localhost:3001/saveContent", this.state.themeContent ).promise(), $.post( "http://localhost:3001/saveTheme", this.state.themeTheme ).promise() ] )
+        Promise.all( [ $.post( { url: "http://localhost:3005/saveContent", data: JSON.stringify( this.state.themeContent ), contentType: "application/json" } ).promise(), $.post( "http://localhost:3005/saveTheme", this.state.themeTheme ).promise() ] )
             .then( ( result: any ) => {
                 this.state.themeSaved = true;
                 this.setState( this.state );

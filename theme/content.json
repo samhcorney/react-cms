@@ -1,1 +1,1 @@
-{"title":{"_type":"text","_name":"Title","_content":"Title Content"},"body":{"_type":"textarea","_name":"Site body","_content":"Body Content"},"footer":{"_type":"text","_name":"SIte footer","_content":"Footer Content"},"showbody":{"_type":"checkbox","_name":"Show Body","_content":"false"}}
+{"title":{"_type":"text","_name":"Title","_content":"My Titl"},"body":{"_type":"textarea","_name":"Site body","_content":"Body Cont"},"footer":{"_type":"text","_name":"SIte footer","_content":"Footer Content"},"showbody":{"_type":"checkbox","_name":"Show Body","_content":true}}

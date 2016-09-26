@@ -38,11 +38,6 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-
-
-
-
-
 /*------------------------------------*\
     SAVE CONTENT
 \*------------------------------------*/
@@ -85,7 +80,7 @@ app.post('/saveTheme', function(req, res, next) {
     res.send('done');
 });
 
-app.listen( 3001 );
+app.listen( 3005 );
 
 
 
