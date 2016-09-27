@@ -1,1 +1,1 @@
-{"title":{"_type":"colour","_content":"lightblue"},"body":{"_type":"colour","_content":"white"},"footer":{"_type":"colour","_content":"lightblue"}}
+{"title":{"_type":"colour","_name":"Title Colour","_content":"lightblue"},"body":{"_type":"colour","_name":"Body Colour","_content":"white"},"footer":{"_type":"colour","_name":"Footer Colour","_content":"lightblue"}}

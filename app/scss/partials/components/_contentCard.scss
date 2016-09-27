@@ -12,12 +12,12 @@
 
 .contentCard-label {
     @include media( $desktop ) {
-        @include span-columns(2);
+        @include span-columns(4);
     }
 }
 
 .contentCard-content {
     @include media( $desktop ) {
-        @include span-columns(10);
+        @include span-columns(8);
     }
 }
