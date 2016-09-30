@@ -11,6 +11,22 @@ $desktop: new-breakpoint( min-width 640px );
 
 
 
+$white: #FFFFFF;
+$black: #000000;
+$colour1: hsl(235, 36%, 36%);
+$colour2: hsl(195, 53%, 79%);
+$colour3: #7C898B;
+$colour4: #93A3B1;
+
+$red: red;
+
+
+
+
+
+
+
+
 $sideMenuWidth: 100px;
 
 
@@ -24,3 +40,14 @@ $content-padding-desktop: 30px;
 
 
 $global-border-radius: 4px;
+$global-border-width: 1px;
+$global-border: solid $colour3 1px;
+
+$global-letter-spacing: 1.5px;
+
+
+
+
+$input-padding: 10px;
+$input-line-height: 18px;
+$input-font-size: 15px;

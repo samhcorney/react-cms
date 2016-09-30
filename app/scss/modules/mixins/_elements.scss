@@ -1,9 +1,12 @@
 @mixin inputs {
-    padding: 10px;
+    padding: $input-padding;
     &:focus {
         outline: none;
     }
     border-radius: $global-border-radius;
-    border: solid $colour3 1px;
-    font-size: 15px;
+    border: $global-border;
+    font-size: $input-font-size;
+    line-height: $input-line-height;
+	letter-spacing: $global-letter-spacing;
+    min-width: 200px;
 }

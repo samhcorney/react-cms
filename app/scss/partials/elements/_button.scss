@@ -1,6 +1,7 @@
 button {
+    @include inputs;
+    min-width: 0;
     cursor: pointer;
-    border: none;
     background-color: transparent;
     &:focus {
         outline: none;

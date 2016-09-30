@@ -29,8 +29,10 @@
     background-color: $colour1;
     color: $white;
     text-transform: uppercase;
+    border: none;
+    border-radius: 0px;
 }
 
 .theme--unsaved .saveThemeBtn {
-    background-color: red;
+    background-color: $red;
 }

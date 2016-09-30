@@ -77,21 +77,100 @@ export class MyApp extends React.Component<any, {}> {
             });
     }
 
+
+    addContentFormDefaults = {
+        addContentName : {
+            _type: 'text',
+            _name: 'Name',
+            _content: '',
+            _error: false
+        },
+        addContentHandle : {
+            _type: 'text',
+            _name: 'Handle',
+            _content: '',
+            _error: false
+        },
+        addContentType : {
+            _type: 'dropdown',
+            _name: 'Type',
+            _content: '',
+            _items: [
+                {
+                    _type: 'dropdownItem',
+                    _handle: 'text',
+                    _content: 'Text',
+                    _active: true,
+                    _show: true
+                },
+                {
+                    _type: 'dropdownItem',
+                    _handle: 'textarea',
+                    _content: 'Text Area',
+                    _show: true
+                },
+                {
+                    _type: 'dropdownItem',
+                    _handle: 'number',
+                    _content: 'Number',
+                    _show: true
+                },
+                {
+                    _type: 'dropdownItem',
+                    _handle: 'checkbox',
+                    _content: 'Checkbox',
+                    _show: true
+                },
+                {
+                    _type: 'dropdownItem',
+                    _handle: 'colour',
+                    _content: 'Colour',
+                    _show: true
+                }
+            ],
+            _error: false
+        }
+    }
+
+
+
+
+
+
     render () {
 
         let pageClasses = 'pageContainer';
         pageClasses = this.state.themeSaved ? pageClasses.concat( ' theme--saved' ) : pageClasses.concat( ' theme--unsaved' );
         let content;
         let changeHandler;
+        let addContentForm = this.addContentFormDefaults;
 
         switch( this.state.menuItems.filter( ( menuItem: MenuItem ) => menuItem.active )[0].handle ) {
             case 'contentEditor':
                 content = this.state.themeContent;
                 changeHandler = this.handleThemeContentChange.bind( this );
+                addContentForm.addContentType._items.forEach( ( dropdownItem: any ) => {
+                    if ( dropdownItem._handle === 'text' ) {
+                        dropdownItem._active = true;
+                    }
+                    else {
+                        dropdownItem._active = false;
+                    }
+                    dropdownItem._show = true;
+                });
                 break;
             case 'themeEditor':
                 content = this.state.themeTheme;
                 changeHandler = this.handleThemeThemeChange.bind( this );
+                addContentForm.addContentType._items.forEach( ( dropdownItem: any ) => {
+                    if ( dropdownItem._handle !== 'colour' ) {
+                        dropdownItem._show = false;
+                        dropdownItem._active = false;
+                    }
+                    else {
+                        dropdownItem._active = true;
+                    }
+                });
                 break;
             default:
                 content = this.state.themeContent;
@@ -103,7 +182,7 @@ export class MyApp extends React.Component<any, {}> {
                 <SideMenu menuItems={ this.state.menuItems }
                     onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
                     onSaveTheme={ this.saveTheme.bind( this ) } />
-                <ContentEditor content={ content } onContentChange={ changeHandler } />
+                <ContentEditor content={ content } addContentForm={ addContentForm } onContentChange={ changeHandler } />
             </div>
         );
     }
