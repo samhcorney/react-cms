@@ -29,9 +29,3 @@
 * Validate function on all content types
 
 * Discard changes button?
-
-
-
-
-
-* Finish dropdown... Close when changing tabs/data changes/pos clicking outside of dropdown

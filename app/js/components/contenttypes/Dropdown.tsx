@@ -9,10 +9,6 @@ import { DropdownItem } from "../../models/DropdownItem"
 
 export class Dropdown extends AbstractContentType {
 
-    state = {
-        isOpen: false
-    };
-
     constructor( props : any ) {
         super( props );
     }
@@ -32,7 +28,7 @@ export class Dropdown extends AbstractContentType {
     }
 
     handleOpenCloseClick () {
-        this.state.isOpen = !this.state.isOpen;
+        this.props.content._isOpen = !this.props.content._isOpen;
         this.setState( this.state );
     }
 
@@ -40,7 +36,7 @@ export class Dropdown extends AbstractContentType {
 
         this.props.content._items.forEach( ( dropdownItem: DropdownItem ) => dropdownItem._active = false );
         this.props.content._items.filter( ( dropdownItem: DropdownItem ) => dropdownItem._handle === dropdownItemClicked._handle )[0]._active = true;
-        this.state.isOpen = false;
+        this.props.content._isOpen = false;
         this.setState( this.state );
         this.props.content._content = dropdownItemClicked._handle;
         this.props.onContentChange( event );
@@ -64,12 +60,12 @@ export class Dropdown extends AbstractContentType {
         }
 
         let dropdownClasses = 'dropdown';
-        dropdownClasses = this.state.isOpen ? dropdownClasses.concat( ' dropdown--open' ) : dropdownClasses;
+        dropdownClasses = this.props.content._isOpen ? dropdownClasses.concat( ' dropdown--open' ) : dropdownClasses;
 
         return (
             <div className={ dropdownClasses }>
                 <p className="dropdown-button" onClick={ this.handleOpenCloseClick.bind( this ) }>{ activeDropdownItem ? activeDropdownItem._content : ( this.props.defaultText ? this.props.defaultText : 'Click to Select' ) }</p>
-                { this.state.isOpen ? <ul className="dropdown-menu dropdown-select">{ dropdownItemsToAdd }</ul> : null }
+                { this.props.content._isOpen ? <ul className="dropdown-menu dropdown-select">{ dropdownItemsToAdd }</ul> : null }
             </div>
         );
     }

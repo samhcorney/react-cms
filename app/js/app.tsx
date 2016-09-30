@@ -95,6 +95,7 @@ export class MyApp extends React.Component<any, {}> {
             _type: 'dropdown',
             _name: 'Type',
             _content: '',
+            _isOpen: false,
             _items: [
                 {
                     _type: 'dropdownItem',
@@ -144,6 +145,7 @@ export class MyApp extends React.Component<any, {}> {
         let content;
         let changeHandler;
         let addContentForm = this.addContentFormDefaults;
+        addContentForm.addContentType._isOpen = false;
 
         switch( this.state.menuItems.filter( ( menuItem: MenuItem ) => menuItem.active )[0].handle ) {
             case 'contentEditor':
