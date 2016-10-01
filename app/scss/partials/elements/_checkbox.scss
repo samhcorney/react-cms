@@ -1,0 +1,11 @@
+.checkbox {
+
+    @include global-border;
+    cursor: pointer;
+    padding: 1px;
+    background-color: $colour7;
+
+    &.checkbox-not-checked {
+        fill: transparent;
+    }
+}

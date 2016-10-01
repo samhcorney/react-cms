@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { ContentTypeRenderer } from './contenttypes/ContentTypeRenderer';
 import { Toast } from './Toast';
+import { Icon } from './Icon';
 
 export class Form extends React.Component<any, {}> {
 
@@ -32,7 +33,7 @@ export class Form extends React.Component<any, {}> {
             let formItem = this.props.formItems[key];
             if ( !formItem._content ) {
                 this.props.formItems[key]._error = true;
-                this.state.formErrorMessage = 'The items highlighted in red need to be filled out';
+                this.state.formErrorMessage = 'The highlighted items need to be filled out';
             }
             else {
                 this.props.formItems[key]._error = false;
@@ -61,16 +62,15 @@ export class Form extends React.Component<any, {}> {
             formItemClasses = formItem._error ? formItemClasses.concat( ' formItem--error' ) : formItemClasses;
             addContentFormItems.push (
                 <div className={ formItemClasses } key={ key }>
-                    <h4>{ formItem._name }</h4>
                     <ContentTypeRenderer content={ formItem } onContentChange={ this.handleChange.bind( this ) } />
                 </div>
             )
         }
 
         return (
-            <div className="form">
+            <div className={ 'form' + ( this.props.className ?  ' ' + this.props.className : '' ) }>
                 { addContentFormItems }
-                <button onClick={ this.submitForm.bind( this ) }>Add</button>
+                <Icon onClick={ this.submitForm.bind( this ) } name="plus" className="btn"/>
                 <Toast message={ this.state.formErrorMessage } />
             </div>
         );

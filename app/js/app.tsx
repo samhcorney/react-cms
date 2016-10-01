@@ -9,6 +9,7 @@ var $ = require( 'jquery' );
  */
 import { Menu } from './components/Menu';
 import { ContentEditor } from './components/ContentEditor';
+import { Toast } from './components/Toast';
 
 /*
  * Models
@@ -25,7 +26,8 @@ export class MyApp extends React.Component<any, {}> {
         ],
         themeContent: {},
         themeTheme: {},
-        themeSaved: true
+        themeSaved: true,
+        themeSavedMessage: ''
     };
 
     constructor( props : any ) {
@@ -52,29 +54,34 @@ export class MyApp extends React.Component<any, {}> {
 
     handleThemeContentChange () {
 
+        this.state.themeSavedMessage = '';
         this.state.themeSaved = false;
         this.setState( this.state );
     }
 
     handleThemeThemeChange () {
 
+        this.state.themeSavedMessage = '';
         this.state.themeSaved = false;
         this.setState( this.state );
     }
 
     saveTheme () {
 
-        Promise.all([
-                $.post( { url: "http://localhost:3005/saveContent", data: JSON.stringify( this.state.themeContent ), contentType: "application/json" } ).promise(),
-                $.post( { url: "http://localhost:3005/saveTheme", data: JSON.stringify( this.state.themeTheme ), contentType: "application/json" } ).promise()
-            ])
-            .then( ( result: any ) => {
-                this.state.themeSaved = true;
-                this.setState( this.state );
-            })
-            .catch( ( error: any ) => {
-                console.log( 'Failed when saving theme', error );
-            });
+        if ( !this.state.themeSaved ) {
+            Promise.all([
+                    $.post( { url: "http://localhost:3005/saveContent", data: JSON.stringify( this.state.themeContent ), contentType: "application/json" } ).promise(),
+                    $.post( { url: "http://localhost:3005/saveTheme", data: JSON.stringify( this.state.themeTheme ), contentType: "application/json" } ).promise()
+                ])
+                .then( ( result: any ) => {
+                    this.state.themeSaved = true;
+                    this.state.themeSavedMessage = 'Theme saved';
+                    this.setState( this.state );
+                })
+                .catch( ( error: any ) => {
+                    console.log( 'Failed when saving theme', error );
+                });    
+        }
     }
 
 
@@ -83,12 +90,14 @@ export class MyApp extends React.Component<any, {}> {
             _type: 'text',
             _name: 'Name',
             _content: '',
+            _placeholder: 'Content Name',
             _error: false
         },
         addContentHandle : {
             _type: 'text',
             _name: 'Handle',
             _content: '',
+            _placeholder: 'Content Handle',
             _error: false
         },
         addContentType : {
@@ -193,6 +202,7 @@ export class MyApp extends React.Component<any, {}> {
                     onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
                     onSaveTheme={ this.saveTheme.bind( this ) } />
                 <ContentEditor content={ content } addContentForm={ addContentForm } onContentChange={ changeHandler } />
+                <Toast message={ this.state.themeSavedMessage } />
             </div>
         );
     }

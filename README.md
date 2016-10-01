@@ -30,3 +30,6 @@
 
 * Discard changes button?
 * Rename menu to main navigation or something similar. Menu is too generic.
+* Rewrite toast and alert to make it more reusable/ no need to modify state/param in parent component. Try having a param called showToast. Set this in parent when you want to show toast. reset the state of the component and then directly after set showToast to false.
+
+live preview tab

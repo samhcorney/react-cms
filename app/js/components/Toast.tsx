@@ -26,7 +26,6 @@ export class Toast extends React.Component<any, {}> {
                 this.state.message = '';
                 this.setState( this.state );
             }, this.props.closeAfterMilliseconds ? this.props.closeAfterMilliseconds : 3500 );
-
         }
     }
 
@@ -41,7 +40,7 @@ export class Toast extends React.Component<any, {}> {
         return (
             this.state.message ?
             <div className="toast">
-                <p>{ this.state.message }</p>
+                <h4>{ this.state.message }</h4>
                 <Icon onClick={ this.handleCloseClick.bind( this ) } name="cross" className="btn"/>
             </div> : null
         );

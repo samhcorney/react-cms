@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { AbstractContentType } from './AbstractContentType';
+import { Icon } from '../Icon';
 
 /*
  * Models
@@ -55,7 +56,10 @@ export class Dropdown extends AbstractContentType {
 
         return (
             <div className={ dropdownClasses }>
-                <p className="dropdown-button" onClick={ this.handleOpenCloseClick.bind( this ) }>{ activeDropdownItem ? activeDropdownItem._content : ( this.props.defaultText ? this.props.defaultText : 'Click to Select' ) }</p>
+                <div className="dropdown-button" onClick={ this.handleOpenCloseClick.bind( this ) }>
+                    <p>{ activeDropdownItem ? activeDropdownItem._content : ( this.props.defaultText ? this.props.defaultText : 'Click to Select' ) }</p>
+                    <Icon name="chevron-arrow-down" className="btn"/>
+                </div>
                 { this.props.content._isOpen ? <ul className="dropdown-menu dropdown-select">{ dropdownItemsToAdd }</ul> : null }
             </div>
         );

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { AbstractContentType } from './AbstractContentType';
+import { Icon } from '../Icon';
 
 export class Checkbox extends AbstractContentType {
 
@@ -10,14 +11,14 @@ export class Checkbox extends AbstractContentType {
 
     handleChange ( event ) {
 
-        this.props.content._content = event.target.checked;
+        this.props.content._content = !this.props.content._content;
         this.props.onContentChange( event );
     }
 
     render () {
 
         return (
-            <input type="checkbox" checked={ this.props.content._content } value={ this.props.content._content } onChange={ this.handleChange.bind( this ) } />
+            <Icon className={ 'checkbox' + ( this.props.content._content ? ' checkbox-checked' : ' checkbox-not-checked' ) } onClick={ this.handleChange.bind( this ) } name="checkmark"/>
         );
     }
 }

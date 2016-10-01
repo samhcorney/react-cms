@@ -1,10 +1,16 @@
+@mixin global-border {
+    border-radius: $global-border-radius;
+    border: $global-border;
+}
+
+
 @mixin inputs {
-    padding: $content-padding;
+    padding: $element-padding;
+    background-color: $colour7;
     &:focus {
         outline: none;
     }
-    border-radius: $global-border-radius;
-    border: $global-border;
+    @include global-border;
     font-size: $input-font-size;
     line-height: $input-line-height;
 	letter-spacing: $global-letter-spacing;

@@ -13,42 +13,51 @@ $desktop: new-breakpoint( min-width 640px );
 
 $white: #FFFFFF;
 $black: #000000;
-$colour1: hsl(235, 36%, 36%);
-$colour2: hsl(195, 53%, 79%);
-$colour3: #7C898B;
-$colour4: #93A3B1;
-
-$red: red;
-
-
-
-
+// $colour1: hsl(235, 36%, 36%);
+// $colour2: hsl(195, 53%, 79%);
+// $colour3: #7C898B;
+// $colour4: #93A3B1;
+//
+//
+// $colour5: #1ca7d6;
+$background-colour: #eeeeee;
 
 
 
 
-$menuHeight: 70px;
+$colour1: #1ca7d6;
+$colour2: #d7263d;
+$colour3: #02182b;
+$colour4: #448fa3;
+$colour5: #68c5db;
+$colour6: #d6d6d6;
+$colour7: #f7f7f7;
+
+
+
+
+$menuHeight: 50px;
 
 
 
 
 /* Padding */
-$content-padding-mobile: 20px;
-$content-padding-desktop: 30px;
+$element-padding-mobile: 15px;
+$element-padding-desktop: 20px;
 
 
 
 
-$global-border-radius: 3px;
+$global-border-radius: 0px;
 $global-border-width: 1px;
-$global-border: solid $colour3 1px;
+$global-border: solid $black $global-border-width;
 
 $global-letter-spacing: 1.5px;
 
 
 
 
-$content-padding: 10px;
+$element-padding: 10px;
 $input-line-height: 18px;
 $input-font-size: 15px;
 

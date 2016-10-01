@@ -6,9 +6,11 @@ export class Icon extends React.Component<any, {}> {
         super( props );
     }
 
-    handleClick () {
+    handleClick ( event ) {
 
-        this.props.onClick();
+        if ( this.props.onClick ) {
+            this.props.onClick( event )
+        };
     }
 
     render () {

@@ -4,9 +4,8 @@
     left: 0;
     right: 0;
     margin: 10px;
-    border-radius: $global-border-radius;
-    background-color: $colour4;
-    @include content-padding;
+    background-color: $colour1;
+    @include global-padding;
     display: flex;
     justify-content: space-between;
     align-items: center;

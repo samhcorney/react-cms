@@ -4,5 +4,6 @@ export interface State {
     menuItems: MenuItem[],
     themeContent: {},
     themeTheme: {},
-    themeSaved: boolean
+    themeSaved: boolean,
+    themeSavedMessage: string
 }

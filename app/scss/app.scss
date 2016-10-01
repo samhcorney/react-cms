@@ -25,14 +25,16 @@
 
 /* Elements */
 @import "partials/elements/_button";
+@import "partials/elements/_checkbox";
 @import "partials/elements/_dropdown";
 @import "partials/elements/_svg";
 @import "partials/elements/_input";
+@import "partials/elements/_text";
 @import "partials/elements/_textarea";
 
 /* Components */
+@import "partials/components/_alert";
 @import "partials/components/_contentCard";
-@import "partials/components/_contentEditor";
 @import "partials/components/_form";
 @import "partials/components/_menu";
 @import "partials/components/_toast";
@@ -43,4 +45,13 @@
 body {
 	font-family: 'Lato', sans-serif;
 	letter-spacing: $global-letter-spacing;
+	background-color: $background-colour;
+}
+
+.mainSiteContent {
+	@include global-padding;
+	padding-top: $element-padding-mobile + $menuHeight;
+	@include media( $desktop ) {
+		padding-top: $element-padding-desktop + $menuHeight;
+	}
 }

@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { ContentTypeRenderer } from './contenttypes/ContentTypeRenderer';
 import { Form } from './Form';
+import { Icon } from './Icon';
+import { Alert } from './Alert';
 
 /*
  * Models
@@ -9,6 +11,11 @@ import { Form } from './Form';
 import { DropdownItem } from "../models/DropdownItem"
 
 export class ContentEditor extends React.Component<any, {}> {
+
+    state = {
+        confirmAlertIsOpen: false,
+        contentToRemoveKey: ''
+    }
 
     constructor( props : any ) {
         super( props );
@@ -19,10 +26,11 @@ export class ContentEditor extends React.Component<any, {}> {
         this.props.onContentChange( this.props.content );
     }
 
-    removeContent ( event ) {
+    removeContent ( contentKey ) {
 
-        delete this.props.content[ event.target.id ];
-        this.props.onContentChange( this.props.content );
+        this.state.contentToRemoveKey = contentKey;
+        this.state.confirmAlertIsOpen = true;
+        this.setState( this.state );
     }
 
     addContent ( event ) {
@@ -33,6 +41,14 @@ export class ContentEditor extends React.Component<any, {}> {
             _content: ""
         };
         this.props.content[ this.props.addContentForm.addContentHandle._content ] = newContent;
+        this.props.onContentChange( this.props.content );
+    }
+
+
+    confirm () {
+
+        this.state.confirmAlertIsOpen = false;
+        delete this.props.content[ this.state.contentToRemoveKey ];
         this.props.onContentChange( this.props.content );
     }
 
@@ -47,23 +63,24 @@ export class ContentEditor extends React.Component<any, {}> {
 
             contentItems.push (
                 <div className="contentCard" key={ key }>
-                    <div className="contentCard-container">
+                    <div className="contentCard-header">
                         <h4 className="contentCard-label">{ contentItem._name } ( { key } )</h4>
-                        <div className="contentCard-content">
-                            <ContentTypeRenderer content={ contentItem } onContentChange={ this.handleChange.bind( this ) } />
-                        </div>
-                        <h4 className="contentCard-remove" id={ key } onClick={ this.removeContent.bind( this ) }>Remove</h4>
+                        <Icon onClick={ this.removeContent.bind( this, key ) } name="cross" className="btn"/>
+                    </div>
+                    <div className="contentCard-body">
+                        <ContentTypeRenderer content={ contentItem } onContentChange={ this.handleChange.bind( this ) } />
                     </div>
                 </div>
             )
         }
 
         return (
-            <div className="contentEditor">
-                { contentItems }
+            <div className="contentEditor mainSiteContent">
                 <div className="contentCard">
-                    <Form formItems={ this.props.addContentForm } onSubmitSuccess={ this.addContent.bind( this ) }/>
+                    <Form className="contentCard-header" formItems={ this.props.addContentForm } onSubmitSuccess={ this.addContent.bind( this ) }/>
                 </div>
+                { contentItems }
+                <Alert title="Remove content?" okText="remove" isOpen={ this.state.confirmAlertIsOpen } onConfirm={ this.confirm.bind( this ) } />
             </div>
         );
     }

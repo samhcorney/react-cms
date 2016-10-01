@@ -1,23 +1,22 @@
 .contentCard {
-    @include content-padding;
-    border-bottom: solid 1px $colour4;
+    margin-bottom: $element-padding-mobile;
+    @include media( $desktop ) {
+        margin-bottom: $element-padding-desktop;
+    }
     &:last-child {
-        border-bottom: none;
+        margin-bottom: 0px;
     }
+    background-color: white;
 }
 
-.contentCard-container {
-    @include row;
+.contentCard-header {
+    @include global-padding;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $colour6;
 }
 
-.contentCard-label {
-    @include media( $desktop ) {
-        @include span-columns(4);
-    }
-}
-
-.contentCard-content {
-    @include media( $desktop ) {
-        @include span-columns(8);
-    }
+.contentCard-body {
+    @include global-padding;
 }

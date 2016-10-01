@@ -2,9 +2,9 @@
     #PADDING
 \*------------------------------------*/
 
-@mixin content-padding {
-    padding: $content-padding-mobile;
+@mixin global-padding {
+    padding: $element-padding-mobile;
     @include media( $desktop ) {
-        padding: $content-padding-desktop;
+        padding: $element-padding-desktop;
     }
 }
