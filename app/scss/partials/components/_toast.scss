@@ -1,0 +1,14 @@
+.toast {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 10px;
+    border-radius: $global-border-radius;
+    box-shadow: $global-box-shadow;
+    background-color: $colour4;
+    @include content-padding;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

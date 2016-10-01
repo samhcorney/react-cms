@@ -29,7 +29,3 @@
 * Validate function on all content types
 
 * Discard changes button?
-
-
-
-* Dropdown default item not being set when changing tabs.

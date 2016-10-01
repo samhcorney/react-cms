@@ -179,6 +179,11 @@ export class MyApp extends React.Component<any, {}> {
                 changeHandler = this.handleThemeContentChange.bind( this );
         }
 
+        let activeDropdownItem = addContentForm.addContentType._items.filter( ( dropdownItem: any ) => dropdownItem._active )[0];
+        if ( activeDropdownItem ) {
+            addContentForm.addContentType._content = activeDropdownItem._handle;
+        }
+
         return (
             <div className={ pageClasses }>
                 <SideMenu menuItems={ this.state.menuItems }

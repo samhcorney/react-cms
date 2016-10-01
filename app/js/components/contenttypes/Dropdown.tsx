@@ -13,15 +13,6 @@ export class Dropdown extends AbstractContentType {
         super( props );
     }
 
-    componentWillMount () {
-
-        let activeDropdownItem: DropdownItem = this.getActiveDropdownItem();
-        if ( activeDropdownItem ) {
-            this.props.content._content = activeDropdownItem._handle;
-            this.props.onContentChange( activeDropdownItem._handle );
-        }
-    }
-
     getActiveDropdownItem () {
 
         return this.props.content._items.filter( ( dropdownItem: DropdownItem ) => dropdownItem._active )[0];
@@ -29,7 +20,7 @@ export class Dropdown extends AbstractContentType {
 
     handleOpenCloseClick () {
         this.props.content._isOpen = !this.props.content._isOpen;
-        this.setState( this.state );
+        this.forceUpdate();
     }
 
     handleChange ( dropdownItemClicked: DropdownItem ) {
@@ -37,7 +28,7 @@ export class Dropdown extends AbstractContentType {
         this.props.content._items.forEach( ( dropdownItem: DropdownItem ) => dropdownItem._active = false );
         this.props.content._items.filter( ( dropdownItem: DropdownItem ) => dropdownItem._handle === dropdownItemClicked._handle )[0]._active = true;
         this.props.content._isOpen = false;
-        this.setState( this.state );
+        this.forceUpdate();
         this.props.content._content = dropdownItemClicked._handle;
         this.props.onContentChange( event );
     }

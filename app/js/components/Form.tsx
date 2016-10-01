@@ -5,34 +5,37 @@ import { Toast } from './Toast';
 
 export class Form extends React.Component<any, {}> {
 
-    formError = '';
+    state = {
+        formErrorMessage: ''
+    };
 
     constructor( props : any ) {
         super( props );
     }
 
-    handleChange () {
+    handleChange ( event ) {
 
+        this.state.formErrorMessage = '';
         this.forceUpdate();
     }
 
     submitForm () {
 
-        this.formError = '';
+        this.state.formErrorMessage = '';
 
         for( var key in this.props.formItems ) {
             let formItem = this.props.formItems[key];
             if ( !formItem._content ) {
                 this.props.formItems[key]._error = true;
-                this.formError = 'Error';
+                this.state.formErrorMessage = 'The items highlighted in red need to be filled out';
             }
             else {
                 this.props.formItems[key]._error = false;
             }
         }
 
-        if ( this.formError ) {
-            this.forceUpdate();
+        if ( this.state.formErrorMessage ) {
+            this.setState( this.state );
         }
         else {
             this.props.onSubmitSuccess( this.props.formItems );
@@ -63,6 +66,7 @@ export class Form extends React.Component<any, {}> {
             <div className="form">
                 { addContentFormItems }
                 <button onClick={ this.submitForm.bind( this ) }>Add</button>
+                <Toast message={ this.state.formErrorMessage } />
             </div>
         );
     }

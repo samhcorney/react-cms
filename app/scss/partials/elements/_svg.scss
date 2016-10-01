@@ -1,0 +1,8 @@
+svg {
+    width: 46px;
+    height: 46px;
+    fill: $black;
+    &.btn:hover {
+        cursor: pointer;
+    }
+}
