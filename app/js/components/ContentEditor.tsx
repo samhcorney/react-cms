@@ -12,10 +12,7 @@ import { DropdownItem } from "../models/DropdownItem"
 
 export class ContentEditor extends React.Component<any, {}> {
 
-    state = {
-        confirmAlertIsOpen: false,
-        contentToRemoveKey: ''
-    }
+    refs;
 
     constructor( props : any ) {
         super( props );
@@ -28,9 +25,11 @@ export class ContentEditor extends React.Component<any, {}> {
 
     removeContent ( contentKey ) {
 
-        this.state.contentToRemoveKey = contentKey;
-        this.state.confirmAlertIsOpen = true;
-        this.setState( this.state );
+        this.refs.alert.open({
+            title: "Remove content?",
+            okText: "remove",
+            callbackData: contentKey
+        });
     }
 
     addContent ( event ) {
@@ -45,10 +44,9 @@ export class ContentEditor extends React.Component<any, {}> {
     }
 
 
-    confirm () {
+    confirm ( contentKey ) {
 
-        this.state.confirmAlertIsOpen = false;
-        delete this.props.content[ this.state.contentToRemoveKey ];
+        delete this.props.content[ contentKey ];
         this.props.onContentChange( this.props.content );
     }
 
@@ -75,12 +73,12 @@ export class ContentEditor extends React.Component<any, {}> {
         }
 
         return (
-            <div className="contentEditor mainSiteContent">
+            <div className="contentEditor">
                 <div className="contentCard">
                     <Form className="contentCard-header" formItems={ this.props.addContentForm } onSubmitSuccess={ this.addContent.bind( this ) }/>
                 </div>
                 { contentItems }
-                <Alert title="Remove content?" okText="remove" isOpen={ this.state.confirmAlertIsOpen } onConfirm={ this.confirm.bind( this ) } />
+                <Alert ref="alert" onConfirm={ this.confirm.bind( this ) } />
             </div>
         );
     }

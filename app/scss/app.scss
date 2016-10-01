@@ -48,7 +48,7 @@ body {
 	background-color: $background-colour;
 }
 
-.mainSiteContent {
+.pageContainer {
 	@include global-padding;
 	padding-top: $element-padding-mobile + $menuHeight;
 	@include media( $desktop ) {

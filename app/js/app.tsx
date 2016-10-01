@@ -9,6 +9,7 @@ var $ = require( 'jquery' );
  */
 import { Menu } from './components/Menu';
 import { ContentEditor } from './components/ContentEditor';
+import { LivePreview } from './components/LivePreview';
 import { Toast } from './components/Toast';
 
 /*
@@ -19,15 +20,17 @@ import { MenuItem } from "./models/MenuItem"
 
 export class MyApp extends React.Component<any, {}> {
 
-    state: State = {
+    refs;
+    state = {
         menuItems : [
-            { title: 'Content', handle: 'contentEditor', icon: 'pencil', active: true },
-            { title: 'Theme', handle: 'themeEditor', icon: 'paint-format' }
+            { title: 'Content', handle: 'contentEditor', icon: 'pencil' },
+            { title: 'Theme', handle: 'themeEditor', icon: 'paint-format' },
+            { title: 'Live Preview', handle: 'livePreview', icon: 'play3', active: true }
         ],
         themeContent: {},
         themeTheme: {},
-        themeSaved: true,
-        themeSavedMessage: ''
+        themeTemplate: '',
+        themeSaved: true
     };
 
     constructor( props : any ) {
@@ -41,10 +44,11 @@ export class MyApp extends React.Component<any, {}> {
 
     componentWillMount () {
 
-        Promise.all( [ $.get( "theme/content.json" ).promise(), $.get( "theme/theme.json" ).promise() ] )
+        Promise.all( [ $.get( "theme/content.json" ).promise(), $.get( "theme/theme.json" ).promise(), $.get( "theme/templatetest.html" ).promise() ] )
             .then( ( result: any[] ) => {
                 this.state.themeContent = result[0];
                 this.state.themeTheme = result[1];
+                this.state.themeTemplate = result[2];
                 this.setState( this.state );
             })
             .catch( ( error: any ) => {
@@ -54,14 +58,12 @@ export class MyApp extends React.Component<any, {}> {
 
     handleThemeContentChange () {
 
-        this.state.themeSavedMessage = '';
         this.state.themeSaved = false;
         this.setState( this.state );
     }
 
     handleThemeThemeChange () {
 
-        this.state.themeSavedMessage = '';
         this.state.themeSaved = false;
         this.setState( this.state );
     }
@@ -75,12 +77,12 @@ export class MyApp extends React.Component<any, {}> {
                 ])
                 .then( ( result: any ) => {
                     this.state.themeSaved = true;
-                    this.state.themeSavedMessage = 'Theme saved';
                     this.setState( this.state );
+                    this.refs.toast.open( 'Theme saved' );
                 })
                 .catch( ( error: any ) => {
                     console.log( 'Failed when saving theme', error );
-                });    
+                });
         }
     }
 
@@ -142,25 +144,22 @@ export class MyApp extends React.Component<any, {}> {
         }
     }
 
-
-
-
-
-
     render () {
 
-        let pageClasses = 'pageContainer';
-        pageClasses = this.state.themeSaved ? pageClasses.concat( ' theme--saved' ) : pageClasses.concat( ' theme--unsaved' );
         let content;
         let changeHandler;
         let addContentForm = this.addContentFormDefaults;
+        let showEditor = false;
         addContentForm.addContentType._isOpen = false;
         for ( var key in addContentForm ) {
             addContentForm[key]._error = false;
         }
 
-        switch( this.state.menuItems.filter( ( menuItem: MenuItem ) => menuItem.active )[0].handle ) {
+        let activeMenuItem = this.state.menuItems.filter( ( menuItem: MenuItem ) => menuItem.active )[0];
+
+        switch( activeMenuItem.handle ) {
             case 'contentEditor':
+            showEditor = true;
                 content = this.state.themeContent;
                 changeHandler = this.handleThemeContentChange.bind( this );
                 addContentForm.addContentType._items.forEach( ( dropdownItem: any ) => {
@@ -174,6 +173,7 @@ export class MyApp extends React.Component<any, {}> {
                 });
                 break;
             case 'themeEditor':
+                showEditor = true;
                 content = this.state.themeTheme;
                 changeHandler = this.handleThemeThemeChange.bind( this );
                 addContentForm.addContentType._items.forEach( ( dropdownItem: any ) => {
@@ -197,12 +197,13 @@ export class MyApp extends React.Component<any, {}> {
         }
 
         return (
-            <div className={ pageClasses }>
+            <div className={ 'pageContainer' + ( this.state.themeSaved ? ' theme--saved' : ' theme--unsaved' ) }>
                 <Menu menuItems={ this.state.menuItems }
                     onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
                     onSaveTheme={ this.saveTheme.bind( this ) } />
-                <ContentEditor content={ content } addContentForm={ addContentForm } onContentChange={ changeHandler } />
-                <Toast message={ this.state.themeSavedMessage } />
+                { showEditor ? <ContentEditor content={ content } addContentForm={ addContentForm } onContentChange={ changeHandler } /> : null }
+                { activeMenuItem.handle === 'livePreview' ? <LivePreview themeContent={ this.state.themeContent } themeTemplate={ this.state.themeTemplate } /> : null }
+                <Toast ref="toast" />
             </div>
         );
     }

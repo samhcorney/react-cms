@@ -11,25 +11,16 @@
 
 
 
-
-
-* SVGs
 * Make remove work for nested json objects
 * Make add work for nested json objects
-* Validation on add. Handle must be unique ( at least for that current depth in the JSON tree ). Name can't be blank.
+* Validation on add. Handle must be unique ( at least for that current depth in the JSON tree ).
 * Move add content logic into separate component ( need a way of restricting which content types are available... i.e. for theme only colour ). Current array of content types should be set once and used to produce the content imports. i.e. the current switch statement over all content should use this. This also needs to be extensible with custom content through plugins/ custom contentType creation per site.
 * Make content sortable/arrangeable through drag and drop on the current list of content items.
 * Apple S to save. Enter to save?
-* Reusable toast component. To appear on save success/failure.
 * Move content card in content editor into separate component.
 
-* Dropdown arrow.
-
-* Palette to be completely overhauled
 * Validate function on all content types
 
 * Discard changes button?
 * Rename menu to main navigation or something similar. Menu is too generic.
-* Rewrite toast and alert to make it more reusable/ no need to modify state/param in parent component. Try having a param called showToast. Set this in parent when you want to show toast. reset the state of the component and then directly after set showToast to false.
-
-live preview tab
+* Make toast and alerts global components that can be called anywhere... look into flux/redux

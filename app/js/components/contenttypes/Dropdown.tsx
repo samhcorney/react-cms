@@ -43,19 +43,14 @@ export class Dropdown extends AbstractContentType {
         for ( var key in dropdownItems ) {
             let dropdownItem: DropdownItem = dropdownItems[ key ];
             if ( dropdownItem._show ) {
-                let dropdownItemClasses = 'dropdownItem';
-                dropdownItemClasses = dropdownItem._active ? dropdownItemClasses.concat( ' dropdownItem--active' ) : dropdownItemClasses;
                 dropdownItemsToAdd.push(
-                    <li value={ dropdownItem._handle } key={ key } onClick={ this.handleChange.bind( this, dropdownItem ) } className={ dropdownItemClasses }>{ dropdownItem._content }</li>
+                    <li value={ dropdownItem._handle } key={ key } onClick={ this.handleChange.bind( this, dropdownItem ) } className={ 'dropdownItem' + ( dropdownItem._active ? ' dropdownItem--active' : '' ) }>{ dropdownItem._content }</li>
                 )
             }
         }
 
-        let dropdownClasses = 'dropdown';
-        dropdownClasses = this.props.content._isOpen ? dropdownClasses.concat( ' dropdown--open' ) : dropdownClasses;
-
         return (
-            <div className={ dropdownClasses }>
+            <div className={ 'dropdown' + ( this.props.content._isOpen ? ' dropdown--open' : '' ) }>
                 <div className="dropdown-button" onClick={ this.handleOpenCloseClick.bind( this ) }>
                     <p>{ activeDropdownItem ? activeDropdownItem._content : ( this.props.defaultText ? this.props.defaultText : 'Click to Select' ) }</p>
                     <Icon name="chevron-arrow-down" className="btn"/>

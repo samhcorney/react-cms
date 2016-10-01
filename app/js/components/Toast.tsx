@@ -5,6 +5,7 @@ import { Icon } from './Icon';
 export class Toast extends React.Component<any, {}> {
 
     state = {
+        isOpen: false,
         message: ''
     }
 
@@ -14,34 +15,32 @@ export class Toast extends React.Component<any, {}> {
         super( props );
     }
 
-    componentWillReceiveProps ( nextProps: any ) {
+    open ( message ) {
 
-        if ( nextProps.message ) {
-            this.state.message = nextProps.message;
-            this.setState( this.state );
-            if ( this.timeout ) {
-                clearTimeout( this.timeout );
-            }
-            this.timeout = setTimeout( ( any ) => {
-                this.state.message = '';
-                this.setState( this.state );
-            }, this.props.closeAfterMilliseconds ? this.props.closeAfterMilliseconds : 3500 );
-        }
+        this.state.isOpen = true;
+        this.state.message = message;
+        this.setState( this.state );
+
+        clearTimeout( this.timeout );
+
+        this.timeout = setTimeout( ( any ) => {
+            this.close();
+        }, this.props.closeAfterMilliseconds ? this.props.closeAfterMilliseconds : 3500 );
     }
 
-    handleCloseClick () {
+    close () {
 
-        this.state.message = '';
+        this.state.isOpen = false;
         this.setState( this.state );
     }
 
     render () {
 
         return (
-            this.state.message ?
+            this.state.isOpen ?
             <div className="toast">
                 <h4>{ this.state.message }</h4>
-                <Icon onClick={ this.handleCloseClick.bind( this ) } name="cross" className="btn"/>
+                <Icon onClick={ this.close.bind( this ) } name="cross" className="btn"/>
             </div> : null
         );
     }
