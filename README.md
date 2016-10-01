@@ -29,3 +29,4 @@
 * Validate function on all content types
 
 * Discard changes button?
+* Rename menu to main navigation or something similar. Menu is too generic.

@@ -25,7 +25,7 @@ export class Toast extends React.Component<any, {}> {
             this.timeout = setTimeout( ( any ) => {
                 this.state.message = '';
                 this.setState( this.state );
-            }, this.props.closeAfterMilliseconds ? this.props.closeAfterMilliseconds : 5000 );
+            }, this.props.closeAfterMilliseconds ? this.props.closeAfterMilliseconds : 3500 );
 
         }
     }

@@ -7,7 +7,7 @@ var $ = require( 'jquery' );
 /*
  * Components
  */
-import { SideMenu } from './components/SideMenu';
+import { Menu } from './components/Menu';
 import { ContentEditor } from './components/ContentEditor';
 
 /*
@@ -20,8 +20,8 @@ export class MyApp extends React.Component<any, {}> {
 
     state: State = {
         menuItems : [
-            { title: 'Content', handle: 'contentEditor', active: true },
-            { title: 'Theme', handle: 'themeEditor' }
+            { title: 'Content', handle: 'contentEditor', icon: 'pencil', active: true },
+            { title: 'Theme', handle: 'themeEditor', icon: 'paint-format' }
         ],
         themeContent: {},
         themeTheme: {},
@@ -146,6 +146,9 @@ export class MyApp extends React.Component<any, {}> {
         let changeHandler;
         let addContentForm = this.addContentFormDefaults;
         addContentForm.addContentType._isOpen = false;
+        for ( var key in addContentForm ) {
+            addContentForm[key]._error = false;
+        }
 
         switch( this.state.menuItems.filter( ( menuItem: MenuItem ) => menuItem.active )[0].handle ) {
             case 'contentEditor':
@@ -186,7 +189,7 @@ export class MyApp extends React.Component<any, {}> {
 
         return (
             <div className={ pageClasses }>
-                <SideMenu menuItems={ this.state.menuItems }
+                <Menu menuItems={ this.state.menuItems }
                     onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
                     onSaveTheme={ this.saveTheme.bind( this ) } />
                 <ContentEditor content={ content } addContentForm={ addContentForm } onContentChange={ changeHandler } />

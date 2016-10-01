@@ -1,0 +1,33 @@
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $menuHeight;
+    background-color: $colour2;
+    display: flex;
+    justify-content: center;
+
+}
+
+.menu svg {
+    height: $menuHeight;
+    width: $menuHeight;
+    &:hover {
+        cursor: pointer;
+    }
+    &.active {
+        background-color: $white;
+    }
+    padding: $content-padding;
+}
+
+.saveThemeBtn {
+    margin-left: auto;
+    background-color: $colour1;
+    color: $white;
+}
+
+.theme--unsaved .saveThemeBtn {
+    background-color: $red;
+}

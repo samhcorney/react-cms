@@ -1,5 +1,5 @@
 @mixin inputs {
-    padding: $input-padding;
+    padding: $content-padding;
     &:focus {
         outline: none;
     }

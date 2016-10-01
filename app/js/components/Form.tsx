@@ -13,6 +13,11 @@ export class Form extends React.Component<any, {}> {
         super( props );
     }
 
+    componentWillReceiveProps () {
+
+        this.state.formErrorMessage = '';
+    }
+
     handleChange ( event ) {
 
         this.state.formErrorMessage = '';

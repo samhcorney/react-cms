@@ -1,11 +1,13 @@
 import * as React from 'react';
 
+import { Icon } from './Icon';
+
 /*
  * Models
  */
 import { MenuItem } from "../models/MenuItem"
 
-export class SideMenu extends React.Component<any, {}> {
+export class Menu extends React.Component<any, {}> {
 
     constructor( props : any ) {
         super( props );
@@ -27,18 +29,14 @@ export class SideMenu extends React.Component<any, {}> {
 
         var menuItems = this.props.menuItems.map( ( menuItem: MenuItem ) => {
             return (
-                <li key={ menuItem.handle } className={ menuItem.active ? 'active' : '' } onClick={ this.handleClick.bind( this, menuItem ) }>{ menuItem.title }</li>
+                <Icon key={ menuItem.handle } onClick={ this.handleClick.bind( this, menuItem ) } name={ menuItem.icon } className={ 'btn menu-btn' + ( menuItem.active ? ' active' : '' ) }/>
             );
         });
 
         return (
-            <div className="sideMenu">
-                <button className="saveThemeBtn" onClick={ this.saveTheme.bind( this ) }>Save</button>
-                <nav className ="sideMenu-nav">
-                    <ol>
-                        { menuItems }
-                    </ol>
-                </nav>
+            <div className="menu">
+                { menuItems }
+                <Icon onClick={ this.saveTheme.bind( this ) } name="checkmark" className="saveThemeBtn"/>
             </div>
         );
     }

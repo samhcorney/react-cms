@@ -10,7 +10,7 @@
 
     .dropdown-menu {
         position: absolute;
-        top: $input-line-height + ( $input-padding * 2 );
+        top: $input-line-height + ( $content-padding * 2 );
         left: 0;
         right: 0;
         z-index: 99999;
@@ -28,7 +28,7 @@
         .dropdownItem {
             line-height: $input-line-height;
             font-size: $input-font-size;
-            padding: $input-padding;
+            padding: $content-padding;
             &:hover {
                 background-color: $colour4;
             }
