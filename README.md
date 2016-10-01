@@ -24,3 +24,5 @@
 * Discard changes button?
 * Rename menu to main navigation or something similar. Menu is too generic.
 * Make toast and alerts global components that can be called anywhere... look into flux/redux
+
+* Colour field type to be finished. Something beyond just text input.

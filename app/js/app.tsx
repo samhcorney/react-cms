@@ -15,7 +15,6 @@ import { Toast } from './components/Toast';
 /*
  * Models
  */
-import { State } from "./models/State"
 import { MenuItem } from "./models/MenuItem"
 
 export class MyApp extends React.Component<any, {}> {
