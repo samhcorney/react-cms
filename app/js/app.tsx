@@ -23,9 +23,9 @@ export class MyApp extends React.Component<any, {}> {
     refs;
     state = {
         menuItems : [
-            { title: 'Content', handle: 'contentEditor', icon: 'pencil' },
+            { title: 'Content', handle: 'contentEditor', icon: 'pencil', active: true },
             { title: 'Theme', handle: 'themeEditor', icon: 'paint-format' },
-            { title: 'Live Preview', handle: 'livePreview', icon: 'play3', active: true }
+            { title: 'Live Preview', handle: 'livePreview', icon: 'play3' }
         ],
         themeContent: {},
         themeTheme: {},
