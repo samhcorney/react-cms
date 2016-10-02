@@ -26,3 +26,8 @@
 * Make toast and alerts global components that can be called anywhere... look into flux/redux
 
 * Colour field type to be finished. Something beyond just text input.
+
+
+
+
+* Look into redux/flux. And refactor alerts and toast using this ( if they are a good option for globally reusable components )

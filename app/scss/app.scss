@@ -48,10 +48,10 @@ body {
 	background-color: $background-colour;
 }
 
-.pageContainer {
-	@include global-padding;
-	padding-top: $element-padding-mobile + $menuHeight;
-	@include media( $desktop ) {
-		padding-top: $element-padding-desktop + $menuHeight;
-	}
+.siteContainer {
+	display: flex;
+}
+
+.editorContainer {
+	position: relative;
 }

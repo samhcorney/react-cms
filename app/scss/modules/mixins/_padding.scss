@@ -3,8 +3,8 @@
 \*------------------------------------*/
 
 @mixin global-padding {
-    padding: $element-padding-mobile;
+    padding: $global-padding-mobile;
     @include media( $desktop ) {
-        padding: $element-padding-desktop;
+        padding: $global-padding-desktop;
     }
 }

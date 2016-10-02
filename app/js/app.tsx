@@ -196,13 +196,16 @@ export class MyApp extends React.Component<any, {}> {
         }
 
         return (
-            <div className={ 'pageContainer' + ( this.state.themeSaved ? ' theme--saved' : ' theme--unsaved' ) }>
-                <Menu menuItems={ this.state.menuItems }
-                    onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
-                    onSaveTheme={ this.saveTheme.bind( this ) } />
-                { showEditor ? <ContentEditor content={ content } addContentForm={ addContentForm } onContentChange={ changeHandler } /> : null }
-                { activeMenuItem.handle === 'livePreview' ? <LivePreview themeContent={ this.state.themeContent } themeTemplate={ this.state.themeTemplate } /> : null }
-                <Toast ref="toast" />
+            <div className={ 'siteContainer' + ( this.state.themeSaved ? ' theme--saved' : ' theme--unsaved' ) }>
+                <div className={ 'editorContainer' }>
+                    <Menu menuItems={ this.state.menuItems }
+                        onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
+                        onSaveTheme={ this.saveTheme.bind( this ) } />
+                    { showEditor ? <ContentEditor content={ content } addContentForm={ addContentForm } onContentChange={ changeHandler } /> : null }
+                    { activeMenuItem.handle === 'livePreview' ? <LivePreview themeContent={ this.state.themeContent } themeTemplate={ this.state.themeTemplate } /> : null }
+                    <Toast ref="toast" />
+                </div>
+                <LivePreview themeContent={ this.state.themeContent } themeTemplate={ this.state.themeTemplate } />
             </div>
         );
     }

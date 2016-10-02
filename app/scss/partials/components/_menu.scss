@@ -1,13 +1,8 @@
 .menu {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     height: $menuHeight;
     background-color: $colour1;
     display: flex;
     justify-content: center;
-
 }
 
 .menu svg {
@@ -17,7 +12,7 @@
         cursor: pointer;
     }
     &.active {
-        background-color: $background-colour;
+        background-color: $white;
     }
     padding: $element-padding;
 }

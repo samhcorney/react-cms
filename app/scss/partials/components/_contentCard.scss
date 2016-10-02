@@ -1,11 +1,4 @@
 .contentCard {
-    margin-bottom: $element-padding-mobile;
-    @include media( $desktop ) {
-        margin-bottom: $element-padding-desktop;
-    }
-    &:last-child {
-        margin-bottom: 0px;
-    }
     background-color: white;
 }
 
