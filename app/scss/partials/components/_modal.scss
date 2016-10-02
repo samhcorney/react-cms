@@ -1,4 +1,4 @@
-.alert {
+.modal {
     @include position(fixed, 0 0 0 0);
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 99999;
@@ -6,24 +6,31 @@
     align-items: center;
     justify-content: center;
 
-    .alert-inner {
+    .modal-inner {
         background-color: $white;
         min-width: 300px;
         box-shadow: $global-box-shadow;
     }
 
-    .alert-header {
+    .modal-header {
         @include global-padding;
         display: flex;
         justify-content: space-between;
         background-color: $colour1;
     }
 
-    .alert-content {
+    .modal-content {
+        @include global-padding;
+    }
+
+    .modal-footer {
         button {
             @include global-padding;
             width: 50%;
             &:nth-child(even) {
+                background-color: $colour6;
+            }
+            &:nth-child(odd) {
                 background-color: $colour7;
             }
         }

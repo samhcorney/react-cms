@@ -11,7 +11,7 @@ export class TextArea extends AbstractContentType {
     render () {
 
         return (
-            <textarea value={ this.props.content._content } onChange={ this.handleChange.bind( this ) } />
+            <textarea className={ this.props.className } value={ this.props.content._content } onChange={ this.handleChange.bind( this ) } />
         );
     }
 }

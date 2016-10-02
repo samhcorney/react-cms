@@ -1,7 +1,14 @@
-.formItem.formItem--error input {
-    border-color: $colour2;
+.formItem {
+    width: 100%;
+    margin-bottom: $global-padding-mobile;
+    @include media( $desktop ) {
+        margin-bottom: $global-padding-desktop;
+    }
+    &:last-child {
+        margin-bottom: 0px;
+    }
 }
 
-.form {
-    background-color: $white;
+.formItem.formItem--error {
+    border-color: $colour2;
 }

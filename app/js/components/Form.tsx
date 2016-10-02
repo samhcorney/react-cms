@@ -12,6 +12,15 @@ export class Form extends React.Component<any, {}> {
         super( props );
     }
 
+    reset () {
+
+        for( var key in this.props.formItems ) {
+            let formItem = this.props.formItems[key];
+            formItem._error = false;
+            formItem._content = '';
+        }
+    }
+
     handleChange ( event ) {
 
         this.forceUpdate();
@@ -27,23 +36,20 @@ export class Form extends React.Component<any, {}> {
             if ( !formItem._content ) {
                 errorCount ++;
                 error = true;
-                this.props.formItems[key]._error = true;
+                formItem._error = true;
             }
             else {
-                this.props.formItems[key]._error = false;
+                formItem._error = false;
             }
         }
 
         if ( error ) {
             this.forceUpdate();
-            this.refs.toast.open( 'The highlighted item' + ( errorCount > 1 ? 's' : '' ) + ' need to be filled out' );
+            this.refs.toast.open( 'The highlighted item' + ( errorCount > 1 ? 's' : '' ) + ' need' + ( errorCount === 1 ? 's' : '' ) + ' to be filled out' );
         }
         else {
             this.props.onSubmitSuccess( this.props.formItems );
-
-            for( var key in this.props.formItems ) {
-                this.props.formItems[key]._content = '';
-            }
+            this.reset();
         }
     }
 
@@ -54,16 +60,15 @@ export class Form extends React.Component<any, {}> {
         for ( var key in this.props.formItems ) {
             let formItem = this.props.formItems[ key ];
             addContentFormItems.push (
-                <div className={ 'formItem' + ( formItem._error ? ' formItem--error' : '' ) } key={ key }>
-                    <ContentTypeRenderer content={ formItem } onContentChange={ this.handleChange.bind( this ) } />
-                </div>
+                <ContentTypeRenderer className={ 'formItem' + ( formItem._error ? ' formItem--error' : '' ) } key={ key } content={ formItem } onContentChange={ this.handleChange.bind( this ) } />
             )
         }
 
         return (
-            <div className={ 'form' + ( this.props.className ?  ' ' + this.props.className : '' ) }>
-                { addContentFormItems }
-                <Icon onClick={ this.submitForm.bind( this ) } name="plus" className="btn"/>
+            <div className={ 'formContainer' + ( this.props.className ?  ' ' + this.props.className : '' ) }>
+                <div className="form">
+                    { addContentFormItems }
+                </div>
                 <Toast ref="toast" />
             </div>
         );

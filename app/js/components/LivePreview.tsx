@@ -12,9 +12,8 @@ export class LivePreview extends React.Component<any, {}> {
 
         let result = {};
         if ( Object.prototype.toString.apply( data ) === '[object Object]' || Array.isArray( data ) ) {
-            result = data;
             for ( var i in data ) {
-                result[i] = data[i]._content !== undefined ? this.removeMetadata( data[i]._content ) : data[i];
+                result[data[i]._handle] = data[i]._content !== undefined ? this.removeMetadata( data[i]._content ) : data[i];
             }
         }
         else {

@@ -50,7 +50,7 @@ export class Dropdown extends AbstractContentType {
         }
 
         return (
-            <div className={ 'dropdown' + ( this.props.content._isOpen ? ' dropdown--open' : '' ) }>
+            <div className={ 'dropdown' + ( this.props.content._isOpen ? ' dropdown--open' : '' ) + ( this.props.className ? ' ' + this.props.className : '' ) }>
                 <div className="dropdown-button" onClick={ this.handleOpenCloseClick.bind( this ) }>
                     <p>{ activeDropdownItem ? activeDropdownItem._content : ( this.props.defaultText ? this.props.defaultText : 'Click to Select' ) }</p>
                     <Icon name="chevron-arrow-down" className="btn"/>

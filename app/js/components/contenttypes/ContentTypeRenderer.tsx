@@ -23,25 +23,25 @@ export class ContentTypeRenderer extends React.Component<any, {}> {
 
         switch( this.props.content._type ) {
             case 'text':
-                content = <Text content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
+                content = <Text className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
                 break;
             case 'textarea':
-                content = <TextArea content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
+                content = <TextArea className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
                 break;
             case 'number':
-                content = <Number content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
+                content = <Number className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
                 break;
             case 'checkbox':
-                content = <Checkbox content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
+                content = <Checkbox className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
                 break;
             case 'colour':
-                content = <Text content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
+                content = <Text className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
                 break;
             case 'dropdown':
-                content = <Dropdown content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
+                content = <Dropdown className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
                 break;
             default:
-                content = <Text content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
+                content = <Text className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
         }
 
         return (

@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import { Form } from './Form';
-import { Alert } from './Alert';
+import { AlertModal } from './AlertModal';
 import { ContentCard } from './ContentCard';
+import { AddContentModal } from './AddContentModal';
+import { Icon } from './Icon';
 
 /*
  * Models
@@ -22,30 +23,23 @@ export class ContentEditor extends React.Component<any, {}> {
         this.props.onContentChange( this.props.content );
     }
 
-    removeContent ( contentKey ) {
+    confirmRemoveContent ( contentIndex ) {
 
-        this.refs.alert.open({
+        this.refs.alertModal.open({
             title: "Remove content?",
-            okText: "remove",
-            callbackData: contentKey
+            confirmText: "remove",
+            callbackData: contentIndex
         });
     }
 
-    addContent ( event ) {
+    openAddContentModal () {
 
-        let newContent = {
-            _type: this.props.addContentForm.addContentType._content,
-            _name: this.props.addContentForm.addContentName._content,
-            _content: ""
-        };
-        this.props.content[ this.props.addContentForm.addContentHandle._content ] = newContent;
-        this.props.onContentChange( this.props.content );
+        this.refs.addContentModal.open();
     }
 
+    removeContent ( contentIndex ) {
 
-    confirm ( contentKey ) {
-
-        delete this.props.content[ contentKey ];
+        this.props.content.splice( contentIndex, 1 );
         this.props.onContentChange( this.props.content );
     }
 
@@ -54,19 +48,21 @@ export class ContentEditor extends React.Component<any, {}> {
         let allContent = this.props.content;
         let contentItems = [];
 
-        for ( var key in allContent ) {
+        for ( var i = 0; i < allContent.length; i++ ) {
+            let contentItem = allContent[i];
             contentItems.push (
-                <ContentCard key={ key } contentItem={ allContent[key] } contentHandle={ key } removeContent={ this.removeContent.bind( this ) } handleChange={ this.handleChange.bind( this ) } />
+                <ContentCard key={ i } contentItem={ contentItem } contentIndex={ i } removeContent={ this.confirmRemoveContent.bind( this ) } handleChange={ this.handleChange.bind( this ) } />
             )
         }
 
         return (
             <div className="contentEditor">
-                <div className="contentCard">
-                    <Form className="contentCard-header" formItems={ this.props.addContentForm } onSubmitSuccess={ this.addContent.bind( this ) }/>
+                <div className="btn addContentButton" onClick={ this.openAddContentModal.bind( this ) }>
+                    <Icon className="btn" name="plus" />
                 </div>
                 { contentItems }
-                <Alert ref="alert" onConfirm={ this.confirm.bind( this ) } />
+                <AddContentModal ref="addContentModal" content={ this.props.content } addContentForm={ this.props.addContentForm } onConfirm={ this.handleChange.bind( this ) } />
+                <AlertModal ref="alertModal" onConfirm={ this.removeContent.bind( this ) } />
             </div>
         );
     }

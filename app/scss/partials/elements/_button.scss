@@ -11,3 +11,7 @@ button {
         @include global-border;
     }
 }
+
+&.btn:hover {
+    cursor: pointer;
+}

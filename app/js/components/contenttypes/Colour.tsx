@@ -11,7 +11,7 @@ export class Colour extends AbstractContentType {
     render () {
 
         return (
-            <input type="text" value={ this.props.content._content } onChange={ this.handleChange.bind( this ) } />
+            <input className={ this.props.className } type="text" value={ this.props.content._content } onChange={ this.handleChange.bind( this ) } />
         );
     }
 }

@@ -17,7 +17,7 @@ export class Number extends AbstractContentType {
     render () {
 
         return (
-            <input type="number" value={ this.props.content._content } onChange={ this.handleChange.bind( this ) } />
+            <input className={ this.props.className } type="number" value={ this.props.content._content } onChange={ this.handleChange.bind( this ) } />
         );
     }
 }

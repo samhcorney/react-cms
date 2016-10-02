@@ -18,7 +18,7 @@ export class Checkbox extends AbstractContentType {
     render () {
 
         return (
-            <Icon className={ 'checkbox' + ( this.props.content._content ? ' checkbox-checked' : ' checkbox-not-checked' ) } onClick={ this.handleChange.bind( this ) } name="checkmark"/>
+            <Icon className={ 'checkbox' + ( this.props.content._content ? ' checkbox-checked' : ' checkbox-not-checked' ) + ( this.props.className ? ' ' + this.props.className : '' ) } onClick={ this.handleChange.bind( this ) } name="checkmark"/>
         );
     }
 }
