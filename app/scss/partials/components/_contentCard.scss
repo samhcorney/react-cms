@@ -13,3 +13,18 @@
 .contentCard-body {
     @include global-padding;
 }
+
+
+.contentCard-showbody .contentCard-bodyToggle {
+    transform: rotate( 180deg );
+}
+
+.contentCard-header-buttons .btn {
+    margin-right: $global-padding-mobile;
+    @include media( $desktop ) {
+        margin-right: $global-padding-desktop;
+    }
+    &:last-child {
+        margin-right: 0;
+    }
+}

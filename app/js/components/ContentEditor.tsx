@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import { ContentTypeRenderer } from './contenttypes/ContentTypeRenderer';
 import { Form } from './Form';
-import { Icon } from './Icon';
 import { Alert } from './Alert';
+import { ContentCard } from './ContentCard';
 
 /*
  * Models
@@ -56,19 +55,8 @@ export class ContentEditor extends React.Component<any, {}> {
         let contentItems = [];
 
         for ( var key in allContent ) {
-
-            let contentItem = allContent[key];
-
             contentItems.push (
-                <div className="contentCard" key={ key }>
-                    <div className="contentCard-header">
-                        <h4 className="contentCard-label">{ contentItem._name } ( { key } )</h4>
-                        <Icon onClick={ this.removeContent.bind( this, key ) } name="cross" className="btn"/>
-                    </div>
-                    <div className="contentCard-body">
-                        <ContentTypeRenderer content={ contentItem } onContentChange={ this.handleChange.bind( this ) } />
-                    </div>
-                </div>
+                <ContentCard key={ key } contentItem={ allContent[key] } contentHandle={ key } removeContent={ this.removeContent.bind( this ) } handleChange={ this.handleChange.bind( this ) } />
             )
         }
 
