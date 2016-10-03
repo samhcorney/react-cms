@@ -31,6 +31,7 @@ export class Form extends React.Component<any, {}> {
         let error = '';
         let emptyFieldErrorCount = 0;
 
+        // Form items cannot be empty
         for( var key in this.props.formItems ) {
             let formItem = this.props.formItems[key];
 
@@ -44,15 +45,24 @@ export class Form extends React.Component<any, {}> {
             }
         }
 
+        // Handles must be unique
         if ( !error ) {
             for( var key in this.props.formItems ) {
                 let formItem = this.props.formItems[key];
-                if ( key === 'addContentHandle' && !error ) {
+                if ( key === 'addContentHandle' ) {
                     for ( var i = 0; i < this.props.content.length; i++ ) {
                         console.log( formItem._content, this.props.content[ i ]._handle );
                         if( formItem._content === this.props.content[ i ]._handle ) {
                             formItem._error = true;
                             error = 'Handles must be unique';
+                        }
+                    }
+
+                    // Handles cannot start with an underscore
+                    if ( !error ) {
+                        if ( formItem._content.charAt(0) === '_' ) {
+                            formItem._error = true;
+                            error = 'Handles cannot start with an underscore';
                         }
                     }
                 }
