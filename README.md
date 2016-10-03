@@ -11,15 +11,14 @@
 
 
 
+
 * Make remove work for nested json objects
 * Make add work for nested json objects
-* Validation on add. Handle must be unique ( at least for that current depth in the JSON tree ).
-* Move add content logic into separate component ( need a way of restricting which content types are available... i.e. for theme only colour ). Current array of content types should be set once and used to produce the content imports. i.e. the current switch statement over all content should use this. This also needs to be extensible with custom content through plugins/ custom contentType creation per site.
+
 * Make content sortable/arrangeable through drag and drop on the current list of content items.
 * Apple S to save. Enter to save?
-* Move content card in content editor into separate component.
+* Modal to be refactored. At the moment there are two copies of modal in Modal and AddContentModal.
 
-* Validate function on all content types
 
 * Discard changes button?
 * Rename menu to main navigation or something similar. Menu is too generic.

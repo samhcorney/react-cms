@@ -11,4 +11,7 @@
 
 .formItem.formItem--error {
     border-color: $colour2;
+    .dropdown-button, .dropdown-menu {
+        border-color: $colour2;
+    }
 }

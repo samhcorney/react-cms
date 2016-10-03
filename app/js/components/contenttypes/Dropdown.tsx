@@ -10,26 +10,28 @@ import { DropdownItem } from "../../models/DropdownItem"
 
 export class Dropdown extends AbstractContentType {
 
+    state = {
+        isOpen: false
+    }
+
     constructor( props : any ) {
         super( props );
     }
 
     getActiveDropdownItem () {
 
-        return this.props.content._items.filter( ( dropdownItem: DropdownItem ) => dropdownItem._active )[0];
+        return this.props.content._items.filter( ( dropdownItem: DropdownItem ) => dropdownItem._handle === this.props.content._content )[0];
     }
 
     handleOpenCloseClick () {
-        this.props.content._isOpen = !this.props.content._isOpen;
-        this.forceUpdate();
+        this.state.isOpen = !this.state.isOpen;
+        this.setState( this.state );
     }
 
     handleChange ( dropdownItemClicked: DropdownItem ) {
 
-        this.props.content._items.forEach( ( dropdownItem: DropdownItem ) => dropdownItem._active = false );
-        this.props.content._items.filter( ( dropdownItem: DropdownItem ) => dropdownItem._handle === dropdownItemClicked._handle )[0]._active = true;
-        this.props.content._isOpen = false;
-        this.forceUpdate();
+        this.state.isOpen = false;
+        this.setState( this.state );
         this.props.content._content = dropdownItemClicked._handle;
         this.props.onContentChange( event );
     }
@@ -42,20 +44,18 @@ export class Dropdown extends AbstractContentType {
 
         for ( var key in dropdownItems ) {
             let dropdownItem: DropdownItem = dropdownItems[ key ];
-            if ( dropdownItem._show ) {
-                dropdownItemsToAdd.push(
-                    <li value={ dropdownItem._handle } key={ key } onClick={ this.handleChange.bind( this, dropdownItem ) } className={ 'dropdownItem' + ( dropdownItem._active ? ' dropdownItem--active' : '' ) }>{ dropdownItem._content }</li>
-                )
-            }
+            dropdownItemsToAdd.push(
+                <li value={ dropdownItem._handle } key={ key } onClick={ this.handleChange.bind( this, dropdownItem ) } className={ 'dropdownItem' + ( activeDropdownItem && dropdownItem._handle === activeDropdownItem._handle ? ' dropdownItem--active' : '' ) }>{ dropdownItem._content }</li>
+            )
         }
 
         return (
-            <div className={ 'dropdown' + ( this.props.content._isOpen ? ' dropdown--open' : '' ) + ( this.props.className ? ' ' + this.props.className : '' ) }>
+            <div className={ 'dropdown' + ( this.state.isOpen ? ' dropdown--open' : '' ) + ( this.props.className ? ' ' + this.props.className : '' ) }>
                 <div className="dropdown-button" onClick={ this.handleOpenCloseClick.bind( this ) }>
-                    <p>{ activeDropdownItem ? activeDropdownItem._content : ( this.props.defaultText ? this.props.defaultText : 'Click to Select' ) }</p>
+                    <p>{ activeDropdownItem ? activeDropdownItem._content : ( this.props.content._defaultText ? this.props.content._defaultText : 'Click to Select' ) }</p>
                     <Icon name="chevron-arrow-down" className="btn"/>
                 </div>
-                { this.props.content._isOpen ? <ul className="dropdown-menu dropdown-select">{ dropdownItemsToAdd }</ul> : null }
+                <ul className="dropdown-menu dropdown-select">{ dropdownItemsToAdd }</ul>
             </div>
         );
     }

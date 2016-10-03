@@ -85,74 +85,12 @@ export class MyApp extends React.Component<any, {}> {
         }
     }
 
-
-    addContentFormDefaults = {
-        addContentName : {
-            _type: 'text',
-            _name: 'Name',
-            _content: '',
-            _placeholder: 'Content Name',
-            _error: false
-        },
-        addContentHandle : {
-            _type: 'text',
-            _name: 'Handle',
-            _content: '',
-            _placeholder: 'Content Handle',
-            _error: false
-        },
-        addContentType : {
-            _type: 'dropdown',
-            _name: 'Type',
-            _content: '',
-            _isOpen: false,
-            _items: [
-                {
-                    _type: 'dropdownItem',
-                    _handle: 'text',
-                    _content: 'Text',
-                    _active: true,
-                    _show: true
-                },
-                {
-                    _type: 'dropdownItem',
-                    _handle: 'textarea',
-                    _content: 'Text Area',
-                    _show: true
-                },
-                {
-                    _type: 'dropdownItem',
-                    _handle: 'number',
-                    _content: 'Number',
-                    _show: true
-                },
-                {
-                    _type: 'dropdownItem',
-                    _handle: 'checkbox',
-                    _content: 'Checkbox',
-                    _show: true
-                },
-                {
-                    _type: 'dropdownItem',
-                    _handle: 'colour',
-                    _content: 'Colour',
-                    _show: true
-                }
-            ],
-            _error: false
-        }
-    }
-
     render () {
 
         let content;
         let changeHandler;
-        let addContentForm = this.addContentFormDefaults;
         let showEditor = false;
-        addContentForm.addContentType._isOpen = false;
-        for ( var key in addContentForm ) {
-            addContentForm[key]._error = false;
-        }
+        let restrictContentTypes = [];
 
         let activeMenuItem = this.state.menuItems.filter( ( menuItem: MenuItem ) => menuItem.active )[0];
 
@@ -161,38 +99,16 @@ export class MyApp extends React.Component<any, {}> {
             showEditor = true;
                 content = this.state.themeContent;
                 changeHandler = this.handleThemeContentChange.bind( this );
-                addContentForm.addContentType._items.forEach( ( dropdownItem: any ) => {
-                    if ( dropdownItem._handle === 'text' ) {
-                        dropdownItem._active = true;
-                    }
-                    else {
-                        dropdownItem._active = false;
-                    }
-                    dropdownItem._show = true;
-                });
                 break;
             case 'themeEditor':
                 showEditor = true;
                 content = this.state.themeTheme;
                 changeHandler = this.handleThemeThemeChange.bind( this );
-                addContentForm.addContentType._items.forEach( ( dropdownItem: any ) => {
-                    if ( dropdownItem._handle !== 'colour' ) {
-                        dropdownItem._show = false;
-                        dropdownItem._active = false;
-                    }
-                    else {
-                        dropdownItem._active = true;
-                    }
-                });
+                restrictContentTypes = [ 'colour' ];
                 break;
             default:
                 content = this.state.themeContent;
                 changeHandler = this.handleThemeContentChange.bind( this );
-        }
-
-        let activeDropdownItem = addContentForm.addContentType._items.filter( ( dropdownItem: any ) => dropdownItem._active )[0];
-        if ( activeDropdownItem ) {
-            addContentForm.addContentType._content = activeDropdownItem._handle;
         }
 
         return (
@@ -201,7 +117,7 @@ export class MyApp extends React.Component<any, {}> {
                     <Menu menuItems={ this.state.menuItems }
                         onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
                         onSaveTheme={ this.saveTheme.bind( this ) } />
-                    { showEditor && content.length ? <ContentEditor content={ content } addContentForm={ addContentForm } onContentChange={ changeHandler } /> : null }
+                    { showEditor && content.length ? <ContentEditor content={ content } restrictContentTypes={ restrictContentTypes } onContentChange={ changeHandler } /> : null }
                     { activeMenuItem.handle === 'livePreview' ? <LivePreview themeContent={ this.state.themeContent } themeTemplate={ this.state.themeTemplate } /> : null }
                     <Toast ref="toast" />
                 </div>

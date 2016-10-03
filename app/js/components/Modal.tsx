@@ -12,7 +12,8 @@ export abstract class Modal extends React.Component<any, {}> {
             cancelText: 'cancel',
             confirmText: 'ok',
             callbackData: ''
-        }
+        },
+        data: null
     }
 
     constructor( props : any ) {

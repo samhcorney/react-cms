@@ -11,6 +11,7 @@
     }
 
     .dropdown-menu {
+        display: none;
         position: absolute;
         top: $input-line-height + ( $element-padding * 2 );
         left: 0;
@@ -38,6 +39,9 @@
     }
 
     &.dropdown--open {
+        .dropdown-menu {
+            display: block;
+        }
         .dropdown-button {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;

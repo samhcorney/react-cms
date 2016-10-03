@@ -58,10 +58,10 @@ export class ContentEditor extends React.Component<any, {}> {
         return (
             <div className="contentEditor">
                 <div className="btn addContentButton" onClick={ this.openAddContentModal.bind( this ) }>
-                    <Icon className="btn" name="plus" />
+                    <Icon name="plus" />
                 </div>
                 { contentItems }
-                <AddContentModal ref="addContentModal" content={ this.props.content } addContentForm={ this.props.addContentForm } onConfirm={ this.handleChange.bind( this ) } />
+                <AddContentModal ref="addContentModal" content={ this.props.content } restrictContentTypes={ this.props.restrictContentTypes } onConfirm={ this.handleChange.bind( this ) } />
                 <AlertModal ref="alertModal" onConfirm={ this.removeContent.bind( this ) } />
             </div>
         );

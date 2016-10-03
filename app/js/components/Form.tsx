@@ -28,24 +28,40 @@ export class Form extends React.Component<any, {}> {
 
     submitForm () {
 
-        let error = false;
-        let errorCount = 0;
+        let error = '';
+        let emptyFieldErrorCount = 0;
 
         for( var key in this.props.formItems ) {
             let formItem = this.props.formItems[key];
+
             if ( !formItem._content ) {
-                errorCount ++;
-                error = true;
                 formItem._error = true;
+                emptyFieldErrorCount ++;
+                error = 'The highlighted item' + ( emptyFieldErrorCount > 1 ? 's' : '' ) + ' need' + ( emptyFieldErrorCount === 1 ? 's' : '' ) + ' to be filled out'
             }
             else {
                 formItem._error = false;
             }
         }
 
+        if ( !error ) {
+            for( var key in this.props.formItems ) {
+                let formItem = this.props.formItems[key];
+                if ( key === 'addContentHandle' && !error ) {
+                    for ( var i = 0; i < this.props.content.length; i++ ) {
+                        console.log( formItem._content, this.props.content[ i ]._handle );
+                        if( formItem._content === this.props.content[ i ]._handle ) {
+                            formItem._error = true;
+                            error = 'Handles must be unique';
+                        }
+                    }
+                }
+            }
+        }
+
         if ( error ) {
             this.forceUpdate();
-            this.refs.toast.open( 'The highlighted item' + ( errorCount > 1 ? 's' : '' ) + ' need' + ( errorCount === 1 ? 's' : '' ) + ' to be filled out' );
+            this.refs.toast.open( error );
         }
         else {
             this.props.onSubmitSuccess( this.props.formItems );
@@ -55,11 +71,11 @@ export class Form extends React.Component<any, {}> {
 
     render () {
 
-        let addContentFormItems = [];
+        let formItems = [];
 
         for ( var key in this.props.formItems ) {
             let formItem = this.props.formItems[ key ];
-            addContentFormItems.push (
+            formItems.push (
                 <ContentTypeRenderer className={ 'formItem' + ( formItem._error ? ' formItem--error' : '' ) } key={ key } content={ formItem } onContentChange={ this.handleChange.bind( this ) } />
             )
         }
@@ -67,7 +83,7 @@ export class Form extends React.Component<any, {}> {
         return (
             <div className={ 'formContainer' + ( this.props.className ?  ' ' + this.props.className : '' ) }>
                 <div className="form">
-                    { addContentFormItems }
+                    { formItems }
                 </div>
                 <Toast ref="toast" />
             </div>

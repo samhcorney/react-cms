@@ -13,13 +13,6 @@ export class ContentCard extends React.Component<any, {}> {
         super( props );
     }
 
-    handleClick ( event ) {
-
-        if ( this.props.onClick ) {
-            this.props.onClick( event )
-        };
-    }
-
     toggleBody () {
 
         this.state.showBody = !this.state.showBody;
