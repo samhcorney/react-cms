@@ -22,12 +22,12 @@ export class ContentCard extends React.Component<any, {}> {
     render () {
 
         return (
-            <div className={ 'contentCard' + ( this.state.showBody ? ' contentCard-showbody' : ' contentCard-hidebody' ) } >
+            <li className={ 'contentCard' + ( this.state.showBody ? ' contentCard-showbody' : ' contentCard-hidebody' ) } draggable="true" onDragOver={ this.props.dragOver.bind( this, this.props.contentItem ) } onDragEnd={ this.props.dragEnd.bind( this, this.props.contentItem ) } >
                 <div className="contentCard-header">
-                    <h4 className="contentCard-label">{ this.props.contentItem._name } ( { this.props.contentItem._handle } )</h4>
+                    <h4 className="contentCard-label">{ this.props.contentItem._name } ( { this.props.contentHandle } )</h4>
                     <div className="contentCard-header-buttons">
-                        <Icon onClick={ this.props.removeContent.bind( this, this.props.contentIndex ) } name="cross" className="btn"/>
-                        <Icon onClick={ this.toggleBody.bind( this, this.props.contentItem._handle ) } name="chevron-arrow-down" className="btn contentCard-bodyToggle"/>
+                        <Icon onClick={ this.props.removeContent.bind( this ) } name="cross" className="btn"/>
+                        <Icon onClick={ this.toggleBody.bind( this ) } name="chevron-arrow-down" className="btn contentCard-bodyToggle"/>
                     </div>
                 </div>
                 { this.state.showBody ?
@@ -35,7 +35,7 @@ export class ContentCard extends React.Component<any, {}> {
                     <ContentTypeRenderer content={ this.props.contentItem } onContentChange={ this.props.handleChange.bind( this ) } />
                 </div>
                 : null }
-            </div>
+            </li>
         );
     }
 }

@@ -45,12 +45,12 @@ app.post('/saveContent', function(req, res, next) {
 
     fs.readFile( '../theme/template.html', function ( err, template ) {
        fs.writeFile( '../theme/content.json', JSON.stringify( req.body ) );
-       fs.writeFile( '../theme/index.html', Handlebars.compile( template.toString() )( removeMetadata( req.body._content ) ) );
+       fs.writeFile( '../theme/index.html', Handlebars.compile( template.toString() )( removeMetadata( req.body ) ) );
    });
    res.send('done');
 });
 
-function removeMetadataOld ( data ) {
+function removeMetadata ( data ) {
     var result = {};
 
     if ( Object.prototype.toString.apply( data ) === '[object Object]' || Array.isArray( data ) ) {
@@ -65,7 +65,7 @@ function removeMetadataOld ( data ) {
     return result;
 }
 
-function removeMetadata ( data ) {
+function removeMetadataAlt ( data ) {
 
     var result = {};
     if ( Object.prototype.toString.apply( data ) === '[object Object]' || Array.isArray( data ) ) {
@@ -88,7 +88,7 @@ function removeMetadata ( data ) {
 app.post('/saveTheme', function(req, res, next) {
 
     fs.writeFile( '../theme/theme.json', JSON.stringify( req.body ), function(){
-        fs.writeFile( '../theme/temporaryhackdeleteme.json', JSON.stringify( removeMetadata( req.body._content ) ), function () {
+        fs.writeFile( '../theme/temporaryhackdeleteme.json', JSON.stringify( removeMetadata( req.body ) ), function () {
             jsonToScss();
             themeScss();
         });

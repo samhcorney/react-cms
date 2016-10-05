@@ -25,7 +25,7 @@
 * Make toast and alerts global components that can be called anywhere... look into flux/redux
 
 * Colour field type to be finished. Something beyond just text input.
-
+* Add styling/placeholder to drag and drop.
 
 
 

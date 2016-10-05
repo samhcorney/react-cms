@@ -1,1 +1,1 @@
-{"_content":[{"_handle":"title","_type":"colour","_name":"Title Colour","_content":"lightblue"},{"_handle":"body","_type":"colour","_name":"Body Colour","_content":"white"},{"_handle":"footer","_type":"colour","_name":"Footer Colour","_content":"lightblue"}]}
+{"title":{"_type":"colour","_name":"Title Colour","_rank":0,"_content":"lightblue"},"body":{"_type":"colour","_name":"Body Colour","_rank":1,"_content":"white"},"footer":{"_type":"colour","_name":"Footer Colour","_rank":2,"_content":"lightblue"}}

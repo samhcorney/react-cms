@@ -26,8 +26,8 @@ export class MyApp extends React.Component<any, {}> {
             { title: 'Theme', handle: 'themeEditor', icon: 'paint-format' },
             { title: 'Live Preview', handle: 'livePreview', icon: 'play3' }
         ],
-        themeContent: [],
-        themeTheme: [],
+        themeContent: {},
+        themeTheme: {},
         themeTemplate: '',
         themeSaved: true
     };
@@ -45,8 +45,8 @@ export class MyApp extends React.Component<any, {}> {
 
         Promise.all( [ $.get( "theme/content.json" ).promise(), $.get( "theme/theme.json" ).promise(), $.get( "theme/templatetest.html" ).promise() ] )
             .then( ( result: any[] ) => {
-                this.state.themeContent = result[0]._content;
-                this.state.themeTheme = result[1]._content;
+                this.state.themeContent = result[0];
+                this.state.themeTheme = result[1];
                 this.state.themeTemplate = result[2];
                 this.setState( this.state );
             })
@@ -71,8 +71,8 @@ export class MyApp extends React.Component<any, {}> {
 
         if ( !this.state.themeSaved ) {
             Promise.all([
-                    $.post( { url: "http://localhost:3005/saveContent", data: JSON.stringify( { '_content' : this.state.themeContent } ), contentType: "application/json" } ).promise(),
-                    $.post( { url: "http://localhost:3005/saveTheme", data: JSON.stringify(  { '_content' : this.state.themeTheme }  ), contentType: "application/json" } ).promise()
+                    $.post( { url: "http://localhost:3005/saveContent", data: JSON.stringify( this.state.themeContent ), contentType: "application/json" } ).promise(),
+                    $.post( { url: "http://localhost:3005/saveTheme", data: JSON.stringify(  this.state.themeTheme  ), contentType: "application/json" } ).promise()
                 ])
                 .then( ( result: any ) => {
                     this.state.themeSaved = true;
@@ -117,7 +117,7 @@ export class MyApp extends React.Component<any, {}> {
                     <Menu menuItems={ this.state.menuItems }
                         onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
                         onSaveTheme={ this.saveTheme.bind( this ) } />
-                    { showEditor && content.length ? <ContentEditor content={ content } restrictContentTypes={ restrictContentTypes } onContentChange={ changeHandler } /> : null }
+                    { showEditor && Object.keys( content ).length ? <ContentEditor content={ content } restrictContentTypes={ restrictContentTypes } onContentChange={ changeHandler } /> : null }
                     { activeMenuItem.handle === 'livePreview' ? <LivePreview themeContent={ this.state.themeContent } themeTemplate={ this.state.themeTemplate } /> : null }
                     <Toast ref="toast" />
                 </div>

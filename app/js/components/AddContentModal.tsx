@@ -93,12 +93,11 @@ export class AddContentModal extends Modal {
     addContent () {
 
         let newContent = {
-            _handle: this.addContentForm.addContentHandle._content,
             _type: this.addContentForm.addContentType._content,
             _name: this.addContentForm.addContentName._content,
             _content: ""
         };
-        this.props.content.push( newContent );
+        this.props.content[ this.addContentForm.addContentHandle._content ] = newContent;
         this.refs.addContentForm.reset();
         super.handleConfirmClick();
     }
