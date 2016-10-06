@@ -27,3 +27,8 @@
 
 
 * Look into redux/flux. And refactor alerts and toast using this ( if they are a good option for globally reusable components )
+
+
+* Sorting toggle.
+
+* Lists... sortable... look into whether contentEditor can be reused for list/main content. At the moment List and contentEditor are very similar...... look into moving add content logic outside of AddContentModal. At the moment there is a check for whether the content type is an array in the Modal. When adding content to list handle and name are not needed. Don't show index in list header. List items currently take up too much space ( header required? )... styling required.

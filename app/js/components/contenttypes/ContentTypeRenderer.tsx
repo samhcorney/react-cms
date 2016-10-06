@@ -5,6 +5,7 @@ import { TextArea } from './TextArea';
 import { Number } from './Number';
 import { Checkbox } from './Checkbox';
 import { Dropdown } from './Dropdown';
+import { List } from './List';
 
 export class ContentTypeRenderer extends React.Component<any, {}> {
 
@@ -39,6 +40,9 @@ export class ContentTypeRenderer extends React.Component<any, {}> {
                 break;
             case 'dropdown':
                 content = <Dropdown className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
+                break;
+            case 'list':
+                content = <List className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;
                 break;
             default:
                 content = <Text className={ this.props.className } content={ this.props.content } onContentChange={ this.handleChange.bind( this ) } />;

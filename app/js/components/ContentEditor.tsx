@@ -5,17 +5,11 @@ import { ContentCard } from './ContentCard';
 import { AddContentModal } from './AddContentModal';
 import { Icon } from './Icon';
 
-/*
- * Models
- */
-import { DropdownItem } from "../models/DropdownItem";
-import { ContentItem } from "../models/ContentItem";
-
 export class ContentEditor extends React.Component<any, {}> {
 
     refs;
     over;
-    contentItemMoved;
+    contentItemSorting;
 
     constructor( props : any ) {
         super( props );
@@ -55,7 +49,7 @@ export class ContentEditor extends React.Component<any, {}> {
 
     dragStart ( contentItem, event ) {
 
-        this.contentItemMoved = contentItem;
+        this.contentItemSorting = contentItem;
     }
 
     dragOver ( contentItem, event ) {
@@ -63,16 +57,16 @@ export class ContentEditor extends React.Component<any, {}> {
         event.preventDefault();
         this.over = contentItem;
 
-        if ( this.contentItemMoved._rank !== this.over._rank ) {
-            let originalRank = this.contentItemMoved._rank;
-            this.contentItemMoved._rank = this.over._rank;
+        if ( this.contentItemSorting._rank !== this.over._rank ) {
+            let originalRank = this.contentItemSorting._rank;
+            this.contentItemSorting._rank = this.over._rank;
             for ( var key in this.props.content ) {
                 let contentItem = this.props.content[ key ];
-                if ( contentItem !== this.contentItemMoved ) {
-                    if ( this.over._rank < originalRank && contentItem._rank >= this.contentItemMoved._rank ) {
+                if ( contentItem !== this.contentItemSorting ) {
+                    if ( this.over._rank < originalRank && contentItem._rank >= this.contentItemSorting._rank ) {
                         contentItem._rank++;
                     }
-                    else if ( this.over._rank > originalRank && contentItem._rank <= this.contentItemMoved._rank ) {
+                    else if ( this.over._rank > originalRank && contentItem._rank <= this.contentItemSorting._rank ) {
                         contentItem._rank--;
                     }
                 }
@@ -82,8 +76,8 @@ export class ContentEditor extends React.Component<any, {}> {
         this.forceUpdate();
     }
 
-    dragEnd ( contentItemMoved, event ) {
-        this.contentItemMoved = null;
+    dragEnd ( contentItemSorting, event ) {
+        this.contentItemSorting = null;
         this.forceUpdate();
     }
 
@@ -95,7 +89,7 @@ export class ContentEditor extends React.Component<any, {}> {
         for ( var key in allContent ) {
             let contentItem = allContent[ key ];
             let style = '';
-            if ( contentItem === this.contentItemMoved ) {
+            if ( contentItem === this.contentItemSorting ) {
                 style = 'placeholder';
             }
             contentItems.push (
