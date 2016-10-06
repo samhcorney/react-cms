@@ -42,7 +42,14 @@ export class ContentEditor extends React.Component<any, {}> {
 
     removeContent ( contentHandle ) {
 
+        let contentItemToRemove = this.props.content[ contentHandle ];
         delete this.props.content[ contentHandle ];
+        for ( var key in this.props.content ) {
+            let contentItem = this.props.content[ key ];
+            if ( contentItem._rank > contentItemToRemove._rank  ) {
+                contentItem._rank--;
+            }
+        }
         this.props.onContentChange( this.props.content );
     }
 

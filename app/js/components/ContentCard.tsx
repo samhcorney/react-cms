@@ -26,7 +26,7 @@ export class ContentCard extends React.Component<any, {}> {
                 <div className="contentCard-header" onDragOver={ this.props.dragOver.bind( this, this.props.contentItem ) }>
                     <h4 className="contentCard-label">{ this.props.contentItem._name } ( { this.props.contentHandle } )</h4>
                     <div className="contentCard-header-buttons">
-                        <Icon onClick={ this.props.removeContent.bind( this ) } name="cross" className="btn"/>
+                        <Icon onClick={ this.props.removeContent.bind( this, this.props.contentHandle ) } name="cross" className="btn"/>
                         <Icon onClick={ this.toggleBody.bind( this ) } name="chevron-arrow-down" className="btn contentCard-bodyToggle"/>
                     </div>
                 </div>

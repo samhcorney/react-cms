@@ -96,7 +96,7 @@ export class MyApp extends React.Component<any, {}> {
 
         switch( activeMenuItem.handle ) {
             case 'contentEditor':
-            showEditor = true;
+                showEditor = true;
                 content = this.state.themeContent;
                 changeHandler = this.handleThemeContentChange.bind( this );
                 break;
@@ -117,7 +117,7 @@ export class MyApp extends React.Component<any, {}> {
                     <Menu menuItems={ this.state.menuItems }
                         onMenuItemClick={ this.handleMenuItemClick.bind( this ) }
                         onSaveTheme={ this.saveTheme.bind( this ) } />
-                    { showEditor && Object.keys( content ).length ? <ContentEditor content={ content } restrictContentTypes={ restrictContentTypes } onContentChange={ changeHandler } /> : null }
+                    { showEditor ? <ContentEditor content={ content } restrictContentTypes={ restrictContentTypes } onContentChange={ changeHandler } /> : null }
                     { activeMenuItem.handle === 'livePreview' ? <LivePreview themeContent={ this.state.themeContent } themeTemplate={ this.state.themeTemplate } /> : null }
                     <Toast ref="toast" />
                 </div>

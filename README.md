@@ -15,7 +15,6 @@
 * Make remove work for nested json objects
 * Make add work for nested json objects
 
-* Make content sortable/arrangeable through drag and drop on the current list of content items.
 * Apple S to save. Enter to save?
 * Modal to be refactored. At the moment there are two copies of modal in Modal and AddContentModal.
 
