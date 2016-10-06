@@ -15,6 +15,7 @@ export class ContentEditor extends React.Component<any, {}> {
 
     refs;
     over;
+    contentItemMoved;
 
     constructor( props : any ) {
         super( props );
@@ -45,18 +46,26 @@ export class ContentEditor extends React.Component<any, {}> {
         this.props.onContentChange( this.props.content );
     }
 
-    dragEnd ( contentItemMoved, event ) {
+    dragStart ( contentItem, event ) {
 
-        if ( contentItemMoved._rank !== this.over._rank ) {
-            let originalRank = contentItemMoved._rank;
-            contentItemMoved._rank = this.over._rank;
+        this.contentItemMoved = contentItem;
+    }
+
+    dragOver ( contentItem, event ) {
+
+        event.preventDefault();
+        this.over = contentItem;
+
+        if ( this.contentItemMoved._rank !== this.over._rank ) {
+            let originalRank = this.contentItemMoved._rank;
+            this.contentItemMoved._rank = this.over._rank;
             for ( var key in this.props.content ) {
                 let contentItem = this.props.content[ key ];
-                if ( contentItem !== contentItemMoved ) {
-                    if ( this.over._rank < originalRank && contentItem._rank >= contentItemMoved._rank ) {
+                if ( contentItem !== this.contentItemMoved ) {
+                    if ( this.over._rank < originalRank && contentItem._rank >= this.contentItemMoved._rank ) {
                         contentItem._rank++;
                     }
-                    else if ( this.over._rank > originalRank && contentItem._rank <= contentItemMoved._rank ) {
+                    else if ( this.over._rank > originalRank && contentItem._rank <= this.contentItemMoved._rank ) {
                         contentItem._rank--;
                     }
                 }
@@ -66,10 +75,9 @@ export class ContentEditor extends React.Component<any, {}> {
         this.forceUpdate();
     }
 
-    dragOver ( contentItem, event ) {
-
-        event.preventDefault();
-        this.over = contentItem;
+    dragEnd ( contentItemMoved, event ) {
+        this.contentItemMoved = null;
+        this.forceUpdate();
     }
 
     render () {
@@ -79,18 +87,25 @@ export class ContentEditor extends React.Component<any, {}> {
 
         for ( var key in allContent ) {
             let contentItem = allContent[ key ];
+            let style = '';
+            if ( contentItem === this.contentItemMoved ) {
+                style = 'placeholder';
+            }
             contentItems.push (
                 <ContentCard
-                    key={ contentItem._rank }
+                    key={ key }
+                    customStyles={ style }
+                    rank={ contentItem._rank }
                     contentItem={ contentItem }
                     contentHandle={ key }
                     removeContent={ this.confirmRemoveContent.bind( this ) }
                     handleChange={ this.handleChange.bind( this ) }
+                    dragStart={ this.dragStart.bind( this ) }
                     dragOver={ this.dragOver.bind( this ) }
                     dragEnd={ this.dragEnd.bind( this ) } />
             )
         }
-        contentItems.sort( ( contentItemA: any, contentItemB: any ) => contentItemA.key - contentItemB.key );
+        contentItems.sort( ( contentItemA: any, contentItemB: any ) => contentItemA.props.rank - contentItemB.props.rank );
 
         return (
             <div className="contentEditor">

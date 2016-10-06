@@ -25,11 +25,6 @@
 * Make toast and alerts global components that can be called anywhere... look into flux/redux
 
 * Colour field type to be finished. Something beyond just text input.
-* Add styling/placeholder to drag and drop.
-
 
 
 * Look into redux/flux. And refactor alerts and toast using this ( if they are a good option for globally reusable components )
-
-
-* For the new way of storing content data with an array the removeMetadata function needs to be retested to make sure it works with any JSON object.
