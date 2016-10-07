@@ -31,4 +31,10 @@
 
 * Sorting toggle.
 
-* Lists... sortable... look into whether contentEditor can be reused for list/main content. At the moment List and contentEditor are very similar...... look into moving add content logic outside of AddContentModal. At the moment there is a check for whether the content type is an array in the Modal. When adding content to list handle and name are not needed. Don't show index in list header. List items currently take up too much space ( header required? )... styling required.
+* Lists... look into whether contentEditor can be reused for list/main content. At the moment List and contentEditor are very similar...... Don't show index in list header. List items currently take up too much space ( header required? )... styling required. Restrict content type in lists or set list content type? Currently the drag events are on the card header. Sort toggle/icon could help move this to the whole card.
+
+
+* Image/asset content type. For this look into how assets will be stored... external source/local.
+
+
+* Name and handle editable...
