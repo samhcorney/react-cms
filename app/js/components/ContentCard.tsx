@@ -23,7 +23,7 @@ export class ContentCard extends React.Component<any, {}> {
 
         return (
             <li className={ 'contentCard' + ( this.state.showBody ? ' contentCard-showbody' : ' contentCard-hidebody' ) + ( this.props.customStyles ? ' ' + this.props.customStyles : '' ) } >
-                <div className="contentCard-header" draggable="true" onDragOver={ this.props.dragOver.bind( this, this.props.contentItem ) } onDragStart={ this.props.dragStart.bind( this, this.props.contentItem ) } onDragEnd={ this.props.dragEnd.bind( this, this.props.contentItem ) }>
+                <div className="contentCard-header" draggable={ true } onDragOver={ this.props.dragOver.bind( this, this.props.contentItem ) } onDragStart={ this.props.dragStart.bind( this, this.props.contentItem ) } onDragEnd={ this.props.dragEnd.bind( this, this.props.contentItem ) }>
                     <h4 className="contentCard-label">{ this.props.contentItem._name } ( { this.props.contentHandle } )</h4>
                     <div className="contentCard-header-buttons">
                         <Icon onClick={ this.props.removeContent.bind( this, this.props.contentHandle ) } name="cross" className="btn"/>
